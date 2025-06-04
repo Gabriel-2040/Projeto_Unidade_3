@@ -1,0 +1,33 @@
+meu_app_analise/
+│
+├── app.py                  # Ponto de entrada principal
+├── pages/                  # Páginas adicionais (opcional)
+│   └── sobre.py            # Página "Sobre" ou detalhes
+├── utils/
+│   ├── data_loader.py      # Funções de carregamento de dados
+│   ├── visualizations.py   # Funções de visualização
+│   └── filters.py          # Lógica de filtros
+├── assets/
+│   └── dados_completos.csv # (ou configurar para upload)
+└── requirements.txt        # Dependências
+
+------------------------------------------------
+
+Como implementar:
+Crie a estrutura de pastas conforme acima
+Divida seu código atual nos arquivos correspondentes
+Mova o arquivo CSV para a pasta assets/ ou configure o upload
+Instale as dependências no requirements.txt
+Para projetos futuros, você poderia ainda:
+
+Adicionar testes automatizados
+
+Implementar cache de dados com @st.cache_data
+
+Criar componentes reutilizáveis
+
+Adicionar suporte a temas.
+
+--------------
+rodar o arquivo
+streamlit run app.py

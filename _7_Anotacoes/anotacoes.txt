@@ -1,0 +1,60 @@
+# algoritomo preenchimento das tabelas.
+    abra o arquivo csv
+    leia a linha 
+    insira a linha no novo dataframa
+    se a linha lida tiver tudo preenchido pule para linha abaixo
+    leia a linha
+    se o primeiro campo da linha estiver vazio prencha com o dado do campo acima,
+    exemplo: se A7 estiver vaziom, pegue o dado de A6
+    se B6 estiver vazio preencha com B7
+    mostre o dataframe novo,
+    salve o novo dataframe com o nome do arquivo com o final _tratado
+
+    31/05/2025
+
+    Produto/Unidade Nível de Comercialização U.F. 01/2019 02/2019 03/2019  04/2019 05/2019 06/2019 07/2019 08/2019 09/2019 10/2019 11/2019 12/2019  
+    tabela produtos
+        id, produto_unidade
+    tabela nivel Comercialização
+        id
+        TIPO DE Comercialização
+    tabela estados
+        id
+        estado
+    tabela mes
+        id
+        mes
+    
+    tabela ano
+        id
+        ano
+    
+    tabela fato
+    
+Anotaçõs 02/06/2025
+    Analise produtos comercializados
+        Os dados nas tabelas correspondem a venda. então condiciona o faturamento do tipo de comercialização do produto
+        num dado perio de mes/ano/estado.
+    Arquivo diferença varejo x atacado x produtor
+        - Qual estado faturou mais
+        - Qual ano que faturou mais
+        - Quais os 5 produtos mais vendidos
+        - quais os 5 produtos menos vendidos
+        - montar seleção de mes, ano, todos
+
+    Arquivo instabilidade preco estado
+        Selecionar os anos/mes e os estados que tem mais outliers. dai se sabe quem oscilou mais.
+    
+    Arquivo sazonalidade x produto
+        VErificar produtos que não venderam em certo periodo
+
+    Arquivo Produto x Ano
+        Verificar picos de faturamento em determinado mes, por produto, por produto/vendedor
+    
+    Arquivo variacao por periodo
+        Verificar o tipo de produto vendido e a soma do valor por estado.
+
+    
+
+    
+
