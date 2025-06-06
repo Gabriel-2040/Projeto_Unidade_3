@@ -1,0 +1,137 @@
+Aqui está a classificação dos alimentos em macro grupos, organizados de forma lógica e abrangente:
+
+---
+
+### **1. Frutas**
+- ABACAXI PÉROLA (kg, t, un, cx 10 un)  
+- ABACAXI (un, kg)  
+- AÇAÍ FRUTO (kg)  
+- BANANA (20 kg, kg, 1000 un)  
+- BANANA NANICA (kg, 20 kg, 22 kg)  
+- BANANA PACOVAN (kg, 20 kg)  
+- BANANA PRATA (20 kg, kg, 1000 un)  
+- BANANA DA TERRA (kg, 1000 un)  
+- JUÇARA FRUTO (kg)  
+- LARANJA (40.8 kg, kg, 20 kg, t, 25 kg, 1000 un)  
+- LARANJA PERA (40.8 kg, kg, 20 kg, t)  
+- LARANJA LIMA (1 cento, 1000 un)  
+- MAÇÃ (kg, 18 kg)  
+- MAÇÃ FUJI (kg, 18 kg)  
+- MAÇÃ GALA (18 kg, kg)  
+- MAMÃO FORMOSA (kg)  
+- MANGA TOMMY ATKINS (25 kg, kg, 6 kg, 22 kg)  
+- MARACUJÁ AZEDO (kg, 12 kg, 15 kg)  
+- TANGERINA (24 kg, kg, 22 kg)  
+- TANGERINA PONKAN (20 kg, 25 kg, 22 kg)  
+- UMBU FRUTO (kg, 25 kg, 60 kg)  
+- UVA DE MESA (kg)  
+- UVA INDÚSTRIA (kg)  
+
+---
+
+### **2. Grãos e Cereais**
+- ARROZ EM CASCA (50 kg, 60 kg)  
+- ARROZ LONGO BENEFICIADO (30 kg, 60 kg)  
+- ARROZ PARBOILIZADO (30 kg)  
+- FEIJÃO CARIOCA (60 kg)  
+- FEIJÃO PRETO (30 kg, 60 kg, kg)  
+- FEIJÃO CAUPI (60 kg, 50 kg, kg)  
+- MILHO EM GRÃOS (60 kg, 50 kg, kg)  
+- TRIGO EM GRÃOS (60 kg, t)  
+- SOJA EM GRÃOS (60 kg)  
+- AVEIA EM CASCA (60 kg)  
+- CEVADA EM GRÃOS (60 kg)  
+- SORGO (60 kg)  
+
+---
+
+### **3. Raízes e Tubérculos**
+- BATATA-DOCE (20 kg, 22 kg, kg, 30 kg, 40 kg, 60 kg)  
+- BATATA INGLESA (50 kg, kg, 25 kg)  
+- MANDIOCA (kg, t, 20 kg, 28 kg)  
+- CARÁ (kg, 20 kg)  
+- INHAME (kg, t, 20 kg, 60 kg)  
+
+---
+
+### **4. Carnes e Derivados**
+#### **Bovinos**
+- BOI GORDO (15 kg, @)  
+- BOI MAGRO (cabeça)  
+- CARNE BOVINA (15 kg, kg)  
+- CARNE BOVINA CONGELADA (kg)  
+
+#### **Aves**
+- FRANGO VIVO (kg, un)  
+- CARNE DE FRANGO (kg, 18 kg, 20 kg)  
+
+#### **Suínos**
+- CARNE SUÍNA (kg, 15 kg)  
+- SUÍNO VIVO (kg, 15 kg)  
+
+#### **Peixes e Frutos do Mar**
+- BADEJO CONGELADO (kg)  
+- CAMARÃO SETE BARBA (kg)  
+- PIRARUCU (kg)  
+
+---
+
+### **5. Lácteos e Ovos**
+- LEITE DE VACA (l, kg, 400 g)  
+- QUEIJO (kg)  
+- OVOS (dz, 30 dz)  
+
+---
+
+### **6. Óleos e Gorduras**
+- ÓLEO DE SOJA (kg, 900 ml, 20 latas)  
+- ÓLEO DE BABAÇU (kg, l)  
+- AZEITE DE BABAÇU (l)  
+
+---
+
+### **7. Açúcares e Adoçantes**
+- AÇÚCAR CRISTAL (10 kg, 2 kg, 50 kg, 5 kg, kg, 30 kg)  
+- AÇÚCAR REFINADO (10 kg, kg)  
+
+---
+
+### **8. Farinhas e Féculas**
+- FARINHA DE MANDIOCA (50 kg, kg, 20 kg, 45 kg, 60 kg)  
+- FARINHA DE TRIGO (50 kg, kg, t)  
+- FÉCULA DE MANDIOCA (25 kg, 50 kg, kg)  
+- POLVILHO (50 kg, 60 kg, kg, l)  
+
+---
+
+### **9. Hortaliças e Legumes**
+- CEBOLA (20 kg, 25 kg, kg)  
+- TOMATE (22-24 kg, 25 kg, kg, 20 kg, 23 kg)  
+- ALHO (kg, 10 kg)  
+- PIMENTÃO VERDE (kg)  
+- BATATA-DOCE (kg, 20 kg, 22 kg)  
+
+---
+
+### **10. Castanhas e Sementes**
+- CASTANHA DE CAJU (kg)  
+- CASTANHA DO BRASIL (kg, 10 kg)  
+- AMÊNDOA DE CACAU (15 kg, kg, 60 kg)  
+
+---
+
+### **11. Bebidas e Extratos**
+- CAFÉ (60 kg, kg, 250 g)  
+- EXTRATO DE TOMATE (340 g, 310 g)  
+- SUCO DE UVA (1 l, l)  
+
+---
+
+### **12. Outros**
+- BORRACHA (kg)  
+- CERA DE CARNAÚBA (15 kg, kg)  
+- FIBRA DE CARNAÚBA (1000 un, kg)  
+
+---
+
+Essa categorização agrupa os alimentos por similaridade de tipo e uso, facilitando a análise e comparação. Se precisar de ajustes ou subgrupos mais específicos, posso refinar ainda mais!

@@ -1,0 +1,3 @@
+Etapa de primeiros testes.
+Primeiros codigos, testes, verificações, tentativas. os codigos aqui não são usados 
+nas outras etapas
