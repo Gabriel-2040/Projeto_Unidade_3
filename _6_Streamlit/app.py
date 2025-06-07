@@ -16,10 +16,11 @@ st.set_page_config(layout="wide", page_title="Análise de Comercialização")
 # Carregar dados
 df = carregar_dados()
 if df.empty:
+    st.error("Erro: Nenhum dado foi carregado. Verifique a fonte de dados.")
     st.stop()
 
 # Sidebar - Filtros
-filtros = criar_filtros(df)
+filtros = criar_filtros(df)  # Corrigido o nome da função aqui
 df_filtrado = aplicar_filtros(df, filtros)
 
 # Página principal
@@ -39,7 +40,11 @@ with tab1:
 # Div para observações
     with st.container():
         st.markdown("### Observações")
-        st.write("Aqui você pode adicionar suas observações sobre o gráfico acima...")
+        st.write("O banco de dados é referente ao faturamento(ganhos) de produtos no mercado brasileiro, separados por\n "
+        "estado, ano e tipo de comercialização, sendo varejo, atacado e produtor. Aqui vamos verificar:\n"
+        "   - Estados que mais faturaram\n"
+        "   - Evolução do faturamento ao longo do tempo\n" 
+        "   - Tipos de  produtos que mais faturaram\n" )
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab1")
 with tab2:
