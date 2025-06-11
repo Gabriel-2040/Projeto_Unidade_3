@@ -1,3 +1,4 @@
+import matplotlib.ticker as ticker
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
@@ -34,6 +35,13 @@ def _plot_faturamento_estado(df):
     st.subheader("Faturamento por Estado")
     fig, ax = plt.subplots(figsize=(10, 6))
     fat_estado.plot(kind='bar', ax=ax)
+    # Formatar eixo Y como moeda com separador de milhar
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")))
+      # Forçar espaçamento menor entre os ticks
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(100000))
+    # Subtítulos dos eixos
+    ax.set_xlabel("Estados")
+    ax.set_ylabel("Faturamento (R$)")
     plt.xticks(rotation=45)
     st.pyplot(fig)
 
@@ -42,20 +50,60 @@ def _plot_faturamento_ano(df):
     fat_ano = df.groupby('ano')['valor'].sum()  # Fixed: Changed df_filtrado to df
     fig, ax = plt.subplots(figsize=(10, 6))
     fat_ano.plot(kind='line', marker='o', ax=ax)
+    # Formatar eixo Y como moeda com separador de milhar
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")))
+      # Forçar espaçamento menor entre os ticks
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(100000))
+    # Subtítulos dos eixos
+    ax.set_xlabel("Ano")
+    ax.set_ylabel("Faturamento (R$)")
     st.pyplot(fig)
 
 def _plot_top_produtos(df):
     st.subheader("Top 5 Produtos")
-    top_prod = df.groupby('prod_und')['valor'].sum().nlargest(5)  # Fixed: Changed df_filtrado to df
+    top_prod = df.groupby('prod_und')['valor'].sum().nlargest(5).sort_values(ascending=False)
     fig, ax = plt.subplots(figsize=(10, 6))
-    top_prod.plot(kind='bar', ax=ax)
-    plt.xticks(rotation=45)
+    top_prod.plot(kind='barh', ax=ax, color='skyblue')
+    # Adicionar linhas verticais tracejadas nos pontos de interseção com as barras
+    for i, (produto, valor) in enumerate(top_prod.items()):
+        ax.axvline(x=valor, color='red', linestyle=':', linewidth=1)
+        # (opcional) Adicionar anotação com o valor
+        ax.text(valor, i, f'R$ {valor:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."),
+                va='center', ha='left', fontsize=9, color='black')
+    # Formatar eixo X (valores)
+    ax.xaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    )
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(100000))
+    ax.set_xlabel("Faturamento (R$)")
+    ax.set_ylabel("Produtos")    
+    plt.tight_layout()
+    plt.xticks(rotation=90)
     st.pyplot(fig)
+
 
 def _plot_comparacao_comercializacao(df):
     st.subheader("Faturamento por Tipo")
+    plt.style.use('default')
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
+
+    # Formatar eixo Y como moeda com separador de milhar
+    ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    )
+
+    # Ajustar os ticks com base no valor máximo
+    max_valor = df['valor'].max()
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 5))
+
+    # Cor dos labels para garantir visibilidade
+    for label in ax.get_yticklabels():
+        label.set_color('black')
+
+    # Subtítulos dos eixos
+    ax.set_xlabel("Produtor | Atacado | Varejo")
+    ax.set_ylabel("Faturamento (R$)")
     plt.xticks(rotation=45)
     st.pyplot(fig)
 

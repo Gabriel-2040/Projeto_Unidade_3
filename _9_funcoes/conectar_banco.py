@@ -5,10 +5,13 @@ def conectar_banco():
     """Estabelece conexão com o banco de dados"""
     try:
         conexao = psycopg2.connect(
-            host="localhost",
-            database="projeto_python_da18",
-            user="postgres",
-            password="1234"
+                host="localhost",
+                port=5433,
+                database="projeto_python_da18",
+                user="postgres",
+                password="1234",
+                connect_timeout=5
+
         )
         cursor = conexao.cursor()
         print("✓ Conexão estabelecida com sucesso")

@@ -176,3 +176,4 @@ LEFT JOIN datawarehouse.dim_estados de ON de.id = fp."id_U.F."
 LEFT JOIN datawarehouse.dim_produtos dp ON dp.id = fp."id_Produto/Unidade"
 LEFT JOIN datawarehouse.dim_nivel_comercializacao dnc ON dnc.id = fp."id_Nível de Comercialização"
 LEFT JOIN datawarehouse.dim_macrogrupo dm ON dm.id = dp.macrogrupo_id
+left join datawarehouse.dim_regiao dr on dr.id_regiao = fp.id_regiao
