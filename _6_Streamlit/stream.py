@@ -11,7 +11,7 @@ st.set_page_config(layout="wide", page_title="Análise de Comercialização")
 def carregar_dados():
     # Sugestão: usar caminho relativo ou permitir upload pelo Streamlit
     try:
-        df = pd.read_csv(r'C:\digital college\DA18\PYTHON\Projeto_Unidade_3\_5_Dataframes_tratados\dados_completos.csv')  # Assumindo que o arquivo está no mesmo diretório
+        df = pd.read_csv(r'E:\digital college\DA18\PYTHON\Projeto_Unidade_3\_5_Dataframes_tratados\dados_completos.csv')  # Assumindo que o arquivo está no mesmo diretório
         # ou usar: df = pd.read_csv(r'C:\digital college\DA18\PYTHON\Projeto_Unidade_3\_5_Dataframes_tratados\dados_completos.csv')
         
         # Criar coluna data corretamente
