@@ -91,8 +91,40 @@ Nele você pode adicionar filtros, nas paginas e usar todo potencial do pandas, 
 Podemos adicionar botões etc. Como projeto ainda não esta finalizado, preteno ajustar com algumas funções que tem na bilioteca para demonstrar melhor a ferramenta.
 Vou adicionar (daqui a pouco) um link com um video curto do trabalho.
 
+
+### Visão Geral do Faturamento (faturamentopor estado, por ano e top 5 produtos que mais faturaram)
+#### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
+
 <p align="center">
-  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/record_2025-06-11_23-19-14.mp4" alt="record_2025-06-11_23-19-14" />
+  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 01" />
 </p>
+
+### Comparação Varejo x Atacado x Produtor (faturamentopor por tipo e distribuição por estado)
+#### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
+
+<p align="center">
+  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 02" />
+</p>
+
+### Instabilidade de Preços (Estados com maior instabilidade / Ditribuição de preços por estado)
+#### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
+
+<p align="center">
+  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 03" />
+</p>
+
+### Sazonalidade de um tipo de produto por ano
+#### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
+
+<p align="center">
+  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 04" />
+</p>
+
+### Variação de Preços por Período mês/ano
+#### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
+<p align="center">
+  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 05" />
+</p>
+
 
 
