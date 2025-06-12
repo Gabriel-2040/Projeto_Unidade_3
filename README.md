@@ -77,5 +77,8 @@ Nele você pode adicionar filtros, nas paginas e usar todo potencial do pandas, 
 Podemos adicionar botões etc. Como projeto ainda não esta finalizado, preteno ajustar com algumas funções que tem na bilioteca para demonstrar melhor a ferramenta.
 Vou adicionar (daqui a pouco) um link com um video curto do trabalho.
 
+<p align="center">
+  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dataframe%20tratado.JPG" alt="record_2025-06-11_23-19-14" />
+</p>
 
 
