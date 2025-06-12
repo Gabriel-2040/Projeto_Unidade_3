@@ -96,34 +96,34 @@ Vou adicionar (daqui a pouco) um link com um video curto do trabalho.
 #### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
 
 <p align="center">
-  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 01" />
+  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2001.JPG" alt="streamlit 01" />
 </p>
 
 ### Comparação Varejo x Atacado x Produtor (faturamentopor por tipo e distribuição por estado)
 #### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
 
 <p align="center">
-  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 02" />
+  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2002.JPG" alt="streamlit 02" />
 </p>
 
 ### Instabilidade de Preços (Estados com maior instabilidade / Ditribuição de preços por estado)
 #### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
 
 <p align="center">
-  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 03" />
+  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2003.JPG" alt="streamlit 03" />
 </p>
 
 ### Sazonalidade de um tipo de produto por ano
 #### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
 
 <p align="center">
-  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 04" />
+  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2004.JPG" alt="streamlit 04" />
 </p>
 
 ### Variação de Preços por Período mês/ano
 #### Filtros - Ano / Estados / região / tipo de comercialização / macrogrupo de produto
 <p align="center">
-  <img src="E:\PYTHON\CURSOS\10_Digital_College\DA18\PYTHON\Projeto_Unidade_3\_10_imagens\streamlit 01.JPG" alt="streamlit 05" />
+  <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2005.JPG" alt="streamlit 05" />
 </p>
 
 
