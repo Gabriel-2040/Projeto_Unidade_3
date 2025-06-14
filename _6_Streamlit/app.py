@@ -7,7 +7,8 @@ from utils.visualizations import (
     mostrar_comparacao_tipos,
     mostrar_instabilidade,
     mostrar_sazonalidade,
-    mostrar_variacao_periodo
+    mostrar_variacao_periodo,
+    mostrar_plot_mapa_valor
 )
 
 # Configuração inicial
@@ -27,12 +28,13 @@ df_filtrado = aplicar_filtros(df, filtros)
 st.title('Análise de Comercialização de Produtos')
 
 # Abas
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
+tab1, tab2, tab3, tab4, tab5,tab6 = st.tabs([
     "Visão Geral", 
     "Varejo vs Atacado vs Produtor", 
     "Instabilidade de Preços", 
     "Sazonalidade", 
-    "Variação por Período"
+    "Variação por Período",
+    "Mapa valor do produto por estado"
 ])
 
 with tab1:
@@ -78,6 +80,13 @@ with tab5:
         st.write("Aqui você pode adicionar suas observações sobre o gráfico acima...")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab5")
+with tab6:
+    mostrar_plot_mapa_valor(df)
+    with st.container():
+        st.markdown("### Observações")
+        st.write("Aqui você pode adicionar suas observações sobre o gráfico acima...")
+        # Ou usar um text_area para permitir edição
+        observacoes = st.text_area("Adicione suas observações:", key="obs_tab6")
 
 # Rodapé
 st.sidebar.markdown("---")

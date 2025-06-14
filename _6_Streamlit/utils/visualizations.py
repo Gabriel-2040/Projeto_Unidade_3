@@ -3,6 +3,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import pandas as pd
+import pydeck as pdk
+import random
+
+
+# Dicionário com coordenadas por estado
+estados_coords = {
+    "AC": [-9.97499, -67.8243], "AL": [-9.5713, -36.782], "AM": [-3.4168, -65.8561],
+    "AP": [1.3736, -51.88], "BA": [-12.5797, -41.7007], "CE": [-5.4984, -39.3206],
+    "DF": [-15.7998, -47.8645], "ES": [-19.1834, -40.3089], "GO": [-15.827, -49.8362],
+    "MA": [-5.0422, -45.3656], "MG": [-18.5122, -44.555], "MS": [-20.7722, -54.7852],
+    "MT": [-12.6819, -56.9211], "PA": [-3.4168, -52.2179], "PB": [-7.2399, -36.7819],
+    "PE": [-8.8137, -36.9541], "PI": [-7.7183, -42.7289], "PR": [-24.4842, -51.8624],
+    "RJ": [-22.9083, -43.1964], "RN": [-5.7945, -36.9541], "RO": [-11.5057, -63.5806],
+    "RR": [2.7376, -62.0751], "RS": [-30.0346, -51.2177], "SC": [-27.5954, -48.548],
+    "SE": [-10.5741, -37.3857], "SP": [-23.5505, -46.6333], "TO": [-10.1753, -48.2982],
+}
+
+
 
 def mostrar_visao_geral(df):
     st.header("Visão Geral do Faturamento")
@@ -29,6 +47,18 @@ def mostrar_instabilidade(df):  # Fixed: Added df parameter
         _plot_instabilidade_estados(df)
     with col2:
         _plot_boxplot_estados(df)
+
+def mostrar_mapa_valor(df):
+    st.header("Mapa de Valor")
+    
+    # Adiciona latitude e longitude com base na sigla do estado
+    df["latitude"] = df["estado"].map(lambda x: estados_coords.get(x, [None, None])[0])
+    df["longitude"] = df["estado"].map(lambda x: estados_coords.get(x, [None, None])[1])
+
+    col1, col2 = st.columns(2)
+    with col1:
+        mostrar_plot_mapa_valor(df)
+
 
 def _plot_faturamento_estado(df):
     fat_estado = df.groupby('estado')['valor'].sum().sort_values(ascending=False)
@@ -112,6 +142,10 @@ def _plot_distribuicao_tipos(df):
     pivot = pd.pivot_table(df, values='valor', index='estado', 
                           columns='tipo_de_comercializacao', aggfunc='sum')
     fig, ax = plt.subplots(figsize=(12, 8))
+    # Formatar eixo Y como moeda com separador de milhar
+    ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    )
     pivot.plot(kind='bar', stacked=True, ax=ax)
     plt.xticks(rotation=45)
     plt.legend(title='Tipo Comercialização')
@@ -128,7 +162,13 @@ def _plot_instabilidade_estados(df):
 def _plot_boxplot_estados(df):
     st.subheader("Distribuição de Preços por Estado")
     fig, ax = plt.subplots(figsize=(14, 8))
+        # Formatar eixo Y como moeda com separador de milhar
+    ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    )
     sns.boxplot(data=df, x='estado', y='valor', ax=ax)
+    ax.set_xlabel("ESTADOS")
+    ax.set_ylabel("Faturamento (R$)")
     plt.xticks(rotation=45)
     st.pyplot(fig)
 
@@ -145,10 +185,18 @@ def mostrar_sazonalidade(df):
         sazonal = df_produto.groupby(['ano', 'mes'])['valor'].sum().unstack(level=0)
         
         st.subheader(f"Sazonalidade para {produto_selecionado}")
-        fig, ax = plt.subplots(figsize=(12, 8))
+        fig, ax = plt.subplots(figsize=(10, 3))
+        ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    )
+        # Legenda fora do gráfico, alinhada à direita com espaçamento
+        ax.legend(title='Ano', bbox_to_anchor=(1.15, 1), loc='upper left', fontsize=8, title_fontsize=9)
+
         sazonal.plot(ax=ax)
         plt.legend(title='Ano', bbox_to_anchor=(1.05, 1), loc='upper left')
-        plt.tight_layout()
+        # Tamanhos de fonte menores
+        ax.tick_params(axis='both', labelsize=8)
+        plt.tight_layout(pad=0.5)
         st.pyplot(fig)
         
         # Meses sem venda
@@ -156,7 +204,8 @@ def mostrar_sazonalidade(df):
         if not meses_sem_venda.empty:
             st.warning(f"Meses sem vendas para {produto_selecionado}: {list(meses_sem_venda.index)}")
     else:
-        st.warning("Nenhum dado disponível para o produto selecionado com os filtros atuais")
+        st.warning("Nenhum dado disponível para o produto selecionado com os filtros atuais") 
+
 
 def mostrar_variacao_periodo(df):
     st.header("Variação de Preços por Período")
@@ -177,7 +226,7 @@ def mostrar_variacao_periodo(df):
                 variacao = ts.pct_change() * 100
                 
                 st.subheader(f"Variação Mensal de Preços para {produto_var}")
-                fig, ax = plt.subplots(figsize=(12, 6))
+                fig, ax = plt.subplots(figsize=(12, 4))
                 variacao.plot(ax=ax, marker='o')
                 ax.axhline(0, color='red', linestyle='--')
                 plt.ylabel('Variação Percentual (%)')
@@ -191,3 +240,73 @@ def mostrar_variacao_periodo(df):
                 st.warning("Dados insuficientes para calcular variação (necessário pelo menos 2 períodos)")
         else:
             st.warning("Nenhum dado disponível para o produto selecionado com os filtros atuais")
+
+def mostrar_plot_mapa_valor(df):
+    st.subheader("Mapa de Valor por Estado")
+
+    # Adiciona latitude/longitude se necessário
+    if 'latitude' not in df.columns or 'longitude' not in df.columns:
+        df["latitude"] = df["estado"].map(lambda x: estados_coords.get(x, [None, None])[0])
+        df["longitude"] = df["estado"].map(lambda x: estados_coords.get(x, [None, None])[1])
+
+    df = df.dropna(subset=["latitude", "longitude"])
+
+    # Agrupamento
+    df_mapa = df.groupby(['estado', 'prod_und', 'latitude', 'longitude'], as_index=False)['valor'].sum()
+
+    # Normalizar valores para melhor visualização
+    max_valor = df_mapa['valor'].max()
+    df_mapa['raio_normalizado'] = 50000 + (df_mapa['valor'] / max_valor) * 500000
+
+    # Gerar cores mais claras e vivas
+    produtos_unicos = df_mapa["prod_und"].unique()
+    cores_aleatorias = {
+        produto: [
+            random.randint(150, 255),  # R - mais claro
+            random.randint(150, 255),  # G - mais claro
+            random.randint(50, 200),   # B - variado
+            200                        # Alpha - mais opaco
+        ]
+        for produto in produtos_unicos
+    }
+
+    df_mapa["color"] = df_mapa["prod_und"].apply(lambda x: cores_aleatorias.get(x, [200, 200, 200, 200]))
+
+    # Tooltip para mostrar informações
+    tooltip = {
+        "html": "<b>Estado:</b> {estado}<br>"
+                "<b>Produto:</b> {prod_und}<br>"
+                "<b>Valor:</b> R$ {valor:,.2f}",
+        "style": {
+            "backgroundColor": "steelblue",
+            "color": "white"
+        }
+    }
+
+    layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=df_mapa,
+        get_position='[longitude, latitude]',
+        get_radius="raio_normalizado",  # Usar raio normalizado
+        get_fill_color="color",
+        pickable=True,
+        auto_highlight=True,
+    )
+
+    view_state = pdk.ViewState(
+        latitude=-14.2350,
+        longitude=-51.9253,
+        zoom=3.2,  # Zoom um pouco mais próximo
+        pitch=0,   # Inclinação para melhor perspectiva
+        bearing=0
+    )
+
+    # Usar mapa claro
+    r = pdk.Deck(
+        layers=[layer],
+        initial_view_state=view_state,
+        tooltip=tooltip,
+        map_style='light'  # Estilo de mapa claro
+    )
+
+    st.pydeck_chart(r)
