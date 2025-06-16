@@ -173,45 +173,36 @@ def _plot_comparacao_comercializacao(df):
 def _plot_distribuicao_estados(df):
     st.subheader("Distribuição por Estado")
 
-    # Calcular totais nacionais para referência
+    # Totais nacionais
     totais_nacionais = df.groupby('tipo_de_comercializacao')['valor'].sum()
 
-    pivot = pd.pivot_table(df, values='valor', index='estado', 
+    # Pivot com ordenação automática das colunas por menor faturamento
+    pivot = pd.pivot_table(df, values='valor', index='estado',
                            columns='tipo_de_comercializacao', aggfunc='sum').fillna(0)
 
-    # Reordenar colunas para empilhamento correto (VAREJO na base)
-    setores_ordenados = ['VAREJO', 'ATACADO', 'PRODUTOR']
-    for setor in setores_ordenados:
-        if setor not in pivot.columns:
-            pivot[setor] = 0
+    pivot = pivot[totais_nacionais.sort_values().index]  # ordena colunas automaticamente
 
-    pivot = pivot[setores_ordenados]
-
-    # Calcular total por estado e ordenar
+    # Ordena estados pelo total
     pivot['TOTAL'] = pivot.sum(axis=1)
-    pivot = pivot.sort_values(by='TOTAL')  # ordena do menor pro maior
-    pivot = pivot.drop(columns='TOTAL')
+    pivot = pivot.sort_values(by='TOTAL').drop(columns='TOTAL')
 
-    # Adicionar linha com totais nacionais (no final)
-    pivot.loc['TOTAL NACIONAL'] = [totais_nacionais.get(setor, 0) for setor in setores_ordenados]
+    # Adiciona linha "TOTAL NACIONAL"
+    pivot.loc['TOTAL NACIONAL'] = totais_nacionais[pivot.columns]
 
+    # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
-
-    # Formatação monetária
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
+    pivot.plot(kind='bar', stacked=True, ax=ax)
 
-    # Plot do gráfico
-    pivot.plot(kind='bar', stacked=True, ax=ax, color=["#2ca02c", "#1f77b4", "#ff7f0e"])
-
-    # Destacar linha de total nacional
+    # Linha vertical de destaque
     total_idx = pivot.index.get_loc('TOTAL NACIONAL')
     ax.axvline(x=total_idx - 0.5, color='red', linestyle='--', alpha=0.7)
 
-    # Adicionar valores sobre a barra TOTAL NACIONAL
+    # Texto sobre TOTAL NACIONAL
     y_base = 0
-    for setor in setores_ordenados:
+    for setor in pivot.columns:
         valor = pivot.loc['TOTAL NACIONAL', setor]
         if valor > 0:
             ax.text(total_idx, y_base + valor / 2,
@@ -223,6 +214,12 @@ def _plot_distribuicao_estados(df):
     plt.legend(title='Setor')
     plt.tight_layout()
     st.pyplot(fig)
+
+    # Tabela de totais nacionais
+    st.subheader("Totais Nacionais por Setor")
+    st.table(totais_nacionais.sort_values().apply(
+        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
+    ).rename('Faturamento Total'))
 
     # Mostrar totais nacionais
     st.subheader("Totais Nacionais por Setor")
