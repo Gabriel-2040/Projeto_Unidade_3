@@ -128,7 +128,7 @@ def _plot_comparacao_comercializacao(df):
         label.set_color('black')
     ax.set_xlabel("Produtor | Atacado | Varejo")
     ax.set_ylabel("Faturamento (R$)")
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=0)
     st.pyplot(fig)
 
 
