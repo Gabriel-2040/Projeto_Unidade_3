@@ -176,49 +176,39 @@ def _plot_distribuicao_estados(df):
     # Totais nacionais
     totais_nacionais = df.groupby('tipo_de_comercializacao')['valor'].sum()
 
-    # Pivot com ordenação automática das colunas por menor faturamento
+    # Pivot com ordenação automática das colunas
     pivot = pd.pivot_table(df, values='valor', index='estado',
                            columns='tipo_de_comercializacao', aggfunc='sum').fillna(0)
+    pivot = pivot[totais_nacionais.sort_values().index]
 
-    pivot = pivot[totais_nacionais.sort_values().index]  # ordena colunas automaticamente
-
-    # Ordena estados pelo total (do menor para o maior)
+    # Ordena estados pelo total
     pivot['TOTAL'] = pivot.sum(axis=1)
     pivot = pivot.sort_values(by='TOTAL').drop(columns='TOTAL')
+    pivot = pivot.iloc[::-1]  # Inverte ordem para maior no topo
 
-    # CORREÇÃO: Inverte a ordem dos estados (maior faturamento no topo)
-    pivot = pivot.iloc[::-1]  # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    # PALETA PERSONALIZADA CONFORME SUA REQUISIÇÃO
+    cores_personalizadas = {
+        'atacado': '#1f77b4',   # Azul
+        'varejo': '#2ca02c',     # Verde
+        'produtor': '#ff7f0e',    # Laranja
+    }
+    
+    # Garante que todas as colunas tenham cores (usa cinza para tipos não especificados)
+    cores = [cores_personalizadas.get(col, '#999999') for col in pivot.columns]
 
     # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
-    pivot.plot(kind='bar', stacked=True, ax=ax)  # Mantém gráfico vertical
+    
+    # Gráfico com cores personalizadas
+    pivot.plot(kind='bar', stacked=True, ax=ax, color=cores)
 
     plt.xticks(rotation=45)
-    plt.legend(title='Setor')
+    plt.legend(title='Tipo de Comercialização', loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
     st.pyplot(fig)
-
-    # Tabela de totais nacionais
-    st.subheader("Totais Nacionais por Setor")
-    st.table(totais_nacionais.sort_values().apply(
-        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
-    ).rename('Faturamento Total'))
-
-    # Mostrar totais nacionais
-    st.subheader("Totais Nacionais por Setor")
-    st.table(totais_nacionais.apply(
-        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
-    ).rename('Faturamento Total'))
-
-
-    # Mostrar totais nacionais em tabela
-    st.subheader("Totais Nacionais por Setor")
-    st.table(totais_nacionais.apply(
-        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
-    ).rename('Faturamento Total'))
 
 
 def _plot_instabilidade_estados(df):
