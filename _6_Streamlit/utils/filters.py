@@ -41,6 +41,7 @@ def criar_filtros(df):
 
 def aplicar_filtros(df, filtros):
     return df[
+        (df['mes'].isin(filtros['meses'])) &
         (df['ano'].isin(filtros['anos'])) & 
         (df['estado'].isin(filtros['estados'])) & 
         (df['tipo_de_comercializacao'].isin(filtros['tipos_comerc'])) &
