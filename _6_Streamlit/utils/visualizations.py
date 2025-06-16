@@ -176,11 +176,14 @@ def _plot_comparacao_comercializacao(df):
         outliers = pd.concat([outliers, top5])
 
     if not outliers.empty:
-        st.subheader("Top 5 Outliers por Tipo de Comercialização")
-        st.dataframe(
-            outliers[['tipo_de_comercializacao', 'valor','prod_und']]
-            .sort_values(by=['tipo_de_comercializacao', 'valor','prod_und'], ascending=[True, False])
-            .reset_index(drop=True)
+          for i, row in outliers_grupo.iterrows():
+        ax.text(
+            x=tipo,
+            y=row['valor'],
+            s=str(row['prod_und']),
+            fontsize=8,
+            color='red',
+            ha='center'
         )
     else:
         st.info("Nenhum outlier encontrado nos dados.")
