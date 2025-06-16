@@ -158,28 +158,6 @@ def _plot_comparacao_comercializacao(df):
     plt.xticks(rotation=45)
     st.pyplot(fig)
 
-    # Identificação de outliers (corrigido)
-    outliers = pd.DataFrame(columns=['tipo_de_comercializacao', 'valor', 'prod_und'])  # DataFrame vazio com colunas
-    
-    for tipo, grupo in df.groupby('tipo_de_comercializacao'):
-        q1 = grupo['valor'].quantile(0.25)
-        q3 = grupo['valor'].quantile(0.75)
-        iqr = q3 - q1
-        limite_superior = q3 + 1.5 * iqr
-
-        outliers_grupo = grupo[grupo['valor'] > limite_superior]
-        top5 = outliers_grupo.sort_values(by='valor', ascending=False).head(5)
-        # Seleciona apenas as colunas relevantes (incluindo prod_und)
-        top5 = top5[['tipo_de_comercializacao', 'valor', 'prod_und']]  # ✨ Adiciona prod_und aqui
-        outliers = pd.concat([outliers, top5])
-
-    # Exibição dos resultados
-    if not outliers.empty:
-        st.subheader("Top 3 Outliers por Tipo de Comercialização")
-        outliers = outliers.sort_values(by=['tipo_de_comercializacao', 'valor'], ascending=[True, False])
-        st.dataframe(outliers.reset_index(drop=True))
-    else:
-        st.info("Nenhum outlier encontrado nos dados.")
 
 def _plot_distribuicao_tipos(df):
     st.subheader("Distribuição por Estado")
