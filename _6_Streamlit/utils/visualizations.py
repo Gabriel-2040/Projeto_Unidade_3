@@ -173,40 +173,52 @@ def _plot_comparacao_comercializacao(df):
 def _plot_distribuicao_estados(df):
     st.subheader("Distribuição por Estado")
 
-    # Totais nacionais
-    totais_nacionais = df.groupby('tipo_de_comercializacao')['valor'].sum()
-
-    # Pivot com ordenação automática das colunas
-    pivot = pd.pivot_table(df, values='valor', index='estado',
-                           columns='tipo_de_comercializacao', aggfunc='sum').fillna(0)
-    pivot = pivot[totais_nacionais.sort_values().index]
-
-    # Ordena estados pelo total
-    pivot['TOTAL'] = pivot.sum(axis=1)
-    pivot = pivot.sort_values(by='TOTAL').drop(columns='TOTAL')
-    pivot = pivot.iloc[::-1]  # Inverte ordem para maior no topo
-
-    # PALETA PERSONALIZADA CONFORME SUA REQUISIÇÃO
+    # PALETA PERSONALIZADA 
     cores_personalizadas = {
         'atacado': '#1f77b4',   # Azul
         'varejo': '#2ca02c',     # Verde
         'produtor': '#ff7f0e',    # Laranja
     }
     
-    # # Garante que todas as colunas tenham cores (usa cinza para tipos não especificados)
-    # cores = [cores_personalizadas.get(col, '#999999') for col in pivot.columns]
+    # Filtrar apenas tipos conhecidos (opcional)
+    tipos_validos = list(cores_personalizadas.keys())
+    df = df[df['tipo_de_comercializacao'].isin(tipos_validos)]
+
+    # Totais nacionais com ordenação
+    totais_nacionais = df.groupby('tipo_de_comercializacao')['valor'].sum()
+    ordem_colunas = totais_nacionais.sort_values().index.tolist()  # Ordem crescente
+
+    # Criar pivot com a ordem definida
+    pivot = pd.pivot_table(
+        df,
+        values='valor',
+        index='estado',
+        columns='tipo_de_comercializacao',
+        aggfunc='sum',
+        fill_value=0
+    )[ordem_colunas]  # Garantir ordem das colunas
+
+    # Ordenar estados pelo total (decrescente)
+    pivot = pivot.assign(TOTAL=pivot.sum(axis=1))
+    pivot = pivot.sort_values('TOTAL', ascending=False)
+    pivot = pivot.drop(columns='TOTAL')
+
+    # GERAR CORES NA ORDEM CORRETA
+    cores = [cores_personalizadas[col] for col in pivot.columns]
 
     # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
-    ax.yaxis.set_major_formatter(
-        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
-    )
     
     # Gráfico com cores personalizadas
     pivot.plot(kind='bar', stacked=True, ax=ax, color=cores)
 
+    # Formatar eixo Y
+    ax.yaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    )
+    
     plt.xticks(rotation=45)
-    plt.legend(title='Tipo de Comercialização', loc='upper left', bbox_to_anchor=(1, 1))
+    plt.legend(title='Tipo de Comercialização', bbox_to_anchor=(1.05, 1))
     plt.tight_layout()
     st.pyplot(fig)
 
