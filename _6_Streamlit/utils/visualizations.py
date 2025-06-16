@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 import random
+import plotly.express as px
 
 
 # Dicionário com coordenadas por estado
@@ -111,31 +112,56 @@ def _plot_top_produtos(df):
     plt.xticks(rotation=90)
     st.pyplot(fig)
 
-
 def _plot_comparacao_comercializacao(df):
     st.subheader("Faturamento por Tipo")
-    plt.style.use('default')
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
 
-    # Formatar eixo Y como moeda com separador de milhar
-    ax.yaxis.set_major_formatter(
-        ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+    fig = px.box(
+        df,
+        x='tipo_de_comercializacao',
+        y='valor',
+        points="all",  # mostra todos os pontos, inclusive outliers
+        hover_data=['produto'],  # mostra o nome do produto no hover
+        labels={
+            'tipo_de_comercializacao': 'Produtor | Atacado | Varejo',
+            'valor': 'Faturamento (R$)',
+        }
     )
 
-    # Ajustar os ticks com base no valor máximo
-    max_valor = df['valor'].max()
-    ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 5))
+    # Formatar o eixo Y como moeda brasileira
+    fig.update_yaxes(tickformat=".2f", tickprefix="R$ ")
 
-    # Cor dos labels para garantir visibilidade
-    for label in ax.get_yticklabels():
-        label.set_color('black')
+    # Melhorar visual
+    fig.update_layout(
+        height=600,
+        margin=dict(t=30, b=30),
+    )
 
-    # Subtítulos dos eixos
-    ax.set_xlabel("Produtor | Atacado | Varejo")
-    ax.set_ylabel("Faturamento (R$)")
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
+    st.plotly_chart(fig, use_container_width=True)
+
+# def _plot_comparacao_comercializacao(df):
+#     st.subheader("Faturamento por Tipo")
+#     plt.style.use('default')
+#     fig, ax = plt.subplots(figsize=(10, 6))
+#     sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
+
+#     # Formatar eixo Y como moeda com separador de milhar
+#     ax.yaxis.set_major_formatter(
+#         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
+#     )
+
+#     # Ajustar os ticks com base no valor máximo
+#     max_valor = df['valor'].max()
+#     ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 5))
+
+#     # Cor dos labels para garantir visibilidade
+#     for label in ax.get_yticklabels():
+#         label.set_color('black')
+
+#     # Subtítulos dos eixos
+#     ax.set_xlabel("Produtor | Atacado | Varejo")
+#     ax.set_ylabel("Faturamento (R$)")
+#     plt.xticks(rotation=45)
+#     st.pyplot(fig)
 
 def _plot_distribuicao_tipos(df):
     st.subheader("Distribuição por Estado")
