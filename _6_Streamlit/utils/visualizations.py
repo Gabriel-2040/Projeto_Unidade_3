@@ -113,89 +113,23 @@ def _plot_top_produtos(df):
     st.pyplot(fig)
 
 def _plot_comparacao_comercializacao(df):
- # 1. Preparar dados mensais por produto
-    df['mes'] = df['data'].dt.month  # Criar coluna de mês
-    df_mensal = df.groupby(['prod_und', 'mes'])['valor'].sum().reset_index()
-    
-    # 2. Calcular estatísticas para identificação de outliers
-    st.subheader("Distribuição de Faturamento Mensal por Produto")
-    plt.figure(figsize=(14, 8))
-    
-    # 3. Gerar boxplot por produto
-    ax = sns.boxplot(
-        data=df_mensal, 
-        x='prod_und', 
-        y='valor',
-        showfliers=True,
-        flierprops={'marker': 'o', 'markerfacecolor': 'red', 'markersize': 8}
-    )
-    
-    # 4. Identificar os 3 maiores outliers
-    # Calcular limites de outlier para cada produto
-    outliers_list = []
-    for produto in df_mensal['prod_und'].unique():
-        prod_data = df_mensal[df_mensal['prod_und'] == produto]['valor']
-        Q1 = prod_data.quantile(0.25)
-        Q3 = prod_data.quantile(0.75)
-        IQR = Q3 - Q1
-        lim_superior = Q3 + 1.5 * IQR
-        
-        # Filtrar outliers do produto
-        prod_outliers = df_mensal[
-            (df_mensal['prod_und'] == produto) & 
-            (df_mensal['valor'] > lim_superior)
-        ]
-        
-        for _, row in prod_outliers.iterrows():
-            outliers_list.append({
-                'Produto': row['prod_und'],
-                'Mês': row['mes'],
-                'Valor': row['valor']
-            })
-    
-    # Converter para DataFrame e pegar os 3 maiores
-    outliers_df = pd.DataFrame(outliers_list)
-    top3_outliers = outliers_df.nlargest(3, 'Valor')
-    
-    # 5. Formatar gráfico
+    st.subheader("Faturamento por Tipo")
+    plt.style.use('default')
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
+
+    # Formatar eixo Y como moeda
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
-    plt.xticks(rotation=90)
-    plt.xlabel("Produtos")
-    plt.ylabel("Faturamento Mensal (R$)")
-    plt.tight_layout()
-    st.pyplot(plt.gcf())
-    
-    # 6. Mostrar tabela com top 3 outliers
-    st.subheader("Top 3 Maiores Outliers")
-    if not top3_outliers.empty:
-        # Formatar valores para exibição
-        top3_outliers['Valor Formatado'] = top3_outliers['Valor'].apply(
-            lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
-        )
-        st.dataframe(top3_outliers[['Produto', 'Mês', 'Valor Formatado']].reset_index(drop=True))
-    else:
-        st.write("Nenhum outlier encontrado")
-
-# def _plot_comparacao_comercializacao(df):
-#     st.subheader("Faturamento por Tipo")
-#     plt.style.use('default')
-#     fig, ax = plt.subplots(figsize=(10, 6))
-#     sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
-
-#     # Formatar eixo Y como moeda
-#     ax.yaxis.set_major_formatter(
-#         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
-#     )
-#     max_valor = df['valor'].max()
-#     ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 3))
-#     for label in ax.get_yticklabels():
-#         label.set_color('black')
-#     ax.set_xlabel("Produtor | Atacado | Varejo")
-#     ax.set_ylabel("Faturamento (R$)")
-#     plt.xticks(rotation=45)
-#     st.pyplot(fig)
+    max_valor = df['valor'].max()
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 3))
+    for label in ax.get_yticklabels():
+        label.set_color('black')
+    ax.set_xlabel("Produtor | Atacado | Varejo")
+    ax.set_ylabel("Faturamento (R$)")
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
 
 
 def _plot_distribuicao_tipos(df):
