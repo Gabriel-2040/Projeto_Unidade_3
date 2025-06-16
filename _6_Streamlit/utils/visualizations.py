@@ -138,6 +138,7 @@ def _plot_top_produtos(df):
 
 #     st.plotly_chart(fig, use_container_width=True)
 
+
 def _plot_comparacao_comercializacao(df):
     st.subheader("Faturamento por Tipo")
     plt.style.use('default')
@@ -162,8 +163,7 @@ def _plot_comparacao_comercializacao(df):
     ax.set_ylabel("Faturamento (R$)")
     plt.xticks(rotation=45)
     st.pyplot(fig)
-
-    # Encontrar outliers por tipo de comercialização
+        # Encontrar outliers por tipo de comercialização
     outliers = pd.DataFrame()
     for tipo, grupo in df.groupby('tipo_de_comercializacao'):
         q1 = grupo['valor'].quantile(0.25)
@@ -184,31 +184,6 @@ def _plot_comparacao_comercializacao(df):
         )
     else:
         st.info("Nenhum outlier encontrado nos dados.")
-
-# def _plot_comparacao_comercializacao(df):
-#     st.subheader("Faturamento por Tipo")
-#     plt.style.use('default')
-#     fig, ax = plt.subplots(figsize=(10, 6))
-#     sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
-
-#     # Formatar eixo Y como moeda com separador de milhar
-#     ax.yaxis.set_major_formatter(
-#         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
-#     )
-
-#     # Ajustar os ticks com base no valor máximo
-#     max_valor = df['valor'].max()
-#     ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 5))
-
-#     # Cor dos labels para garantir visibilidade
-#     for label in ax.get_yticklabels():
-#         label.set_color('black')
-
-#     # Subtítulos dos eixos
-#     ax.set_xlabel("Produtor | Atacado | Varejo")
-#     ax.set_ylabel("Faturamento (R$)")
-#     plt.xticks(rotation=45)
-#     st.pyplot(fig)
 
 def _plot_distribuicao_tipos(df):
     st.subheader("Distribuição por Estado")
