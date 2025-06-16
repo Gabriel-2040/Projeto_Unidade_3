@@ -113,23 +113,62 @@ def _plot_top_produtos(df):
     st.pyplot(fig)
 
 def _plot_comparacao_comercializacao(df):
-    st.subheader("Faturamento por Tipo")
-    plt.style.use('default')
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
-
-    # Formatar eixo Y como moeda
+        
+    # 1. Gráfico de faturamento por setor ao longo do tempo
+    st.subheader("Faturamento por Setor ao Longo do Ano")
+    
+    # Agrupar dados por setor e período (mês/ano)
+    faturamento_setor = df.groupby(['ano', 'mes', 'tipo_de_comercializacao'])['valor'].sum().reset_index()
+    faturamento_setor['periodo'] = faturamento_setor['mes'].astype(str) + '/' + faturamento_setor['ano'].astype(str)
+    
+    plt.figure(figsize=(12, 6))
+    ax = sns.lineplot(
+        data=faturamento_setor,
+        x='periodo',
+        y='valor',
+        hue='tipo_de_comercializacao',
+        marker='o',
+        linewidth=2.5
+    )
+    
+    # Formatar eixo Y
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
-    max_valor = df['valor'].max()
-    ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 3))
-    for label in ax.get_yticklabels():
-        label.set_color('black')
-    ax.set_xlabel("Produtor | Atacado | Varejo")
-    ax.set_ylabel("Faturamento (R$)")
-    plt.xticks(rotation=0)
-    st.pyplot(fig)
+    
+    # Adicionar valores nos pontos
+    for line in ax.get_lines():
+        for x, y in zip(line.get_xdata(), line.get_ydata()):
+            ax.text(x, y, f'R$ {y:,.0f}'.replace(",", "X").replace(".", ",").replace("X", "."),
+                    color='black', fontsize=8, ha='center', va='bottom')
+    
+    plt.xlabel("Período (Mês/Ano)")
+    plt.ylabel("Faturamento Total")
+    plt.xticks(rotation=90)
+    plt.legend(title='Setor', loc='upper left')
+    plt.tight_layout()
+    st.pyplot(plt.gcf())
+    
+    # 2. Tabela com os 5 produtos mais vendidos
+    st.subheader("Top 5 Produtos Mais Vendidos")
+    
+    # Calcular top produtos
+    top_produtos = df.groupby('prod_und')['valor'].sum().nlargest(5).reset_index()
+    top_produtos = top_produtos.rename(columns={
+        'prod_und': 'Produto',
+        'valor': 'Faturamento Total'
+    })
+    
+    # Formatar valores monetários
+    top_produtos['Faturamento Total'] = top_produtos['Faturamento Total'].apply(
+        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
+    )
+    
+    # Adicionar posição (ranking)
+    top_produtos.insert(0, 'Posição', range(1, 6))
+    
+    # Exibir tabela formatada
+    st.table(top_produtos)
 
 
 def _plot_distribuicao_tipos(df):
