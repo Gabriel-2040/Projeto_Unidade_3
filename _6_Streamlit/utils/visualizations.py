@@ -120,7 +120,7 @@ def _plot_comparacao_comercializacao(df):
         x='tipo_de_comercializacao',
         y='valor',
         points="all",  # mostra todos os pontos, inclusive outliers
-        hover_data=['produto'],  # mostra o nome do produto no hover
+        hover_data=['prod_und'],  # mostra o nome do produto no hover
         labels={
             'tipo_de_comercializacao': 'Produtor | Atacado | Varejo',
             'valor': 'Faturamento (R$)',
