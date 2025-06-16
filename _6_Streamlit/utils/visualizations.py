@@ -145,26 +145,22 @@ def _plot_comparacao_comercializacao(df):
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.boxplot(data=df, x='tipo_de_comercializacao', y='valor', ax=ax)
 
-    # Formatar eixo Y como moeda com separador de milhar
+    # Formatar eixo Y como moeda
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
-
-    # Ajustar os ticks com base no valor máximo
     max_valor = df['valor'].max()
-    ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 5))
-
-    # Cor dos labels para garantir visibilidade
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(max_valor / 3))
     for label in ax.get_yticklabels():
         label.set_color('black')
-
-    # Subtítulos dos eixos
     ax.set_xlabel("Produtor | Atacado | Varejo")
     ax.set_ylabel("Faturamento (R$)")
     plt.xticks(rotation=45)
     st.pyplot(fig)
-        # Encontrar outliers por tipo de comercialização
-    outliers = pd.DataFrame()
+
+    # Identificação de outliers (corrigido)
+    outliers = pd.DataFrame(columns=['tipo_de_comercializacao', 'valor', 'prod_und'])  # DataFrame vazio com colunas
+    
     for tipo, grupo in df.groupby('tipo_de_comercializacao'):
         q1 = grupo['valor'].quantile(0.25)
         q3 = grupo['valor'].quantile(0.75)
@@ -173,18 +169,15 @@ def _plot_comparacao_comercializacao(df):
 
         outliers_grupo = grupo[grupo['valor'] > limite_superior]
         top5 = outliers_grupo.sort_values(by='valor', ascending=False).head(5)
+        # Seleciona apenas as colunas relevantes (incluindo prod_und)
+        top5 = top5[['tipo_de_comercializacao', 'valor', 'prod_und']]  # ✨ Adiciona prod_und aqui
         outliers = pd.concat([outliers, top5])
 
+    # Exibição dos resultados
     if not outliers.empty:
-        for i, row in outliers_grupo.iterrows():
-            ax.text(
-                x=tipo,
-                y=row['valor'],
-                s=str(row['prod_und']),
-                fontsize=8,
-                color='red',
-                ha='center'
-            )
+        st.subheader("Top 3 Outliers por Tipo de Comercialização")
+        outliers = outliers.sort_values(by=['tipo_de_comercializacao', 'valor'], ascending=[True, False])
+        st.dataframe(outliers.reset_index(drop=True))
     else:
         st.info("Nenhum outlier encontrado nos dados.")
 
