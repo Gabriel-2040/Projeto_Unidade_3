@@ -169,7 +169,7 @@ def _plot_comparacao_comercializacao(df):
     
     # Exibir tabela formatada
     st.table(top_produtos)
-
+    
 def _plot_distribuicao_estados(df):
     st.subheader("Distribuição por Estado")
 
@@ -182,45 +182,24 @@ def _plot_distribuicao_estados(df):
 
     pivot = pivot[totais_nacionais.sort_values().index]  # ordena colunas automaticamente
 
-    # Ordena estados pelo total
+    # Ordena estados pelo total (do menor para o maior)
     pivot['TOTAL'] = pivot.sum(axis=1)
     pivot = pivot.sort_values(by='TOTAL').drop(columns='TOTAL')
 
-    # Adiciona linha "TOTAL NACIONAL"
-    pivot.loc['TOTAL NACIONAL'] = totais_nacionais[pivot.columns]
+    # CORREÇÃO: Inverte a ordem dos estados (maior faturamento no topo)
+    pivot = pivot.iloc[::-1]  # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
-    pivot.plot(kind='bar', stacked=True, ax=ax)
-
-    # Linha vertical de destaque
-    total_idx = pivot.index.get_loc('TOTAL NACIONAL')
-    ax.axvline(x=total_idx - 0.5, color='red', linestyle='--', alpha=0.7)
-
-    # Texto sobre TOTAL NACIONAL
-    y_base = 0
-    for setor in pivot.columns:
-        valor = pivot.loc['TOTAL NACIONAL', setor]
-        if valor > 0:
-            ax.text(total_idx, y_base + valor / 2,
-                    f'R$ {valor:,.0f}'.replace(",", "X").replace(".", ",").replace("X", "."),
-                    color='white', fontsize=8, fontweight='bold', ha='center', va='center')
-            y_base += valor
+    pivot.plot(kind='bar', stacked=True, ax=ax)  # Mantém gráfico vertical
 
     plt.xticks(rotation=45)
     plt.legend(title='Setor')
     plt.tight_layout()
     st.pyplot(fig)
-
-    # Tabela de totais nacionais
-    st.subheader("Totais Nacionais por Setor")
-    st.table(totais_nacionais.sort_values().apply(
-        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
-    ).rename('Faturamento Total'))
-
 
 
 def _plot_instabilidade_estados(df):
