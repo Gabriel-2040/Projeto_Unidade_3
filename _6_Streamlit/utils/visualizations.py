@@ -115,11 +115,11 @@ def _plot_top_produtos(df):
 def _plot_comparacao_comercializacao(df):
         
     # 1. Gráfico de faturamento por setor ao longo do tempo
-    st.subheader("Faturamento por Setor ao Longo do Ano")
+    st.subheader("Faturamento por Setor p/ Ano")
     
     # Agrupar dados por setor e período (mês/ano)
-    faturamento_setor = df.groupby(['ano', 'mes', 'tipo_de_comercializacao'])['valor'].sum().reset_index()
-    faturamento_setor['periodo'] = faturamento_setor['mes'].astype(str) + '/' + faturamento_setor['ano'].astype(str)
+    faturamento_setor = df.groupby(['ano', 'tipo_de_comercializacao'])['valor'].sum().reset_index()
+    faturamento_setor['periodo'] = faturamento_setor['ano'].astype(str)
     
     plt.figure(figsize=(12, 6))
     ax = sns.lineplot(
@@ -142,7 +142,7 @@ def _plot_comparacao_comercializacao(df):
             ax.text(x, y, f'R$ {y:,.0f}'.replace(",", "X").replace(".", ",").replace("X", "."),
                     color='black', fontsize=8, ha='center', va='bottom')
     
-    plt.xlabel("Período (Mês/Ano)")
+    plt.xlabel("Período (Ano)")
     plt.ylabel("Faturamento Total")
     plt.xticks(rotation=90)
     plt.legend(title='Setor', loc='upper left')
