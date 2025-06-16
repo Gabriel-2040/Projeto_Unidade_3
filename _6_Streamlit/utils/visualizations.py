@@ -163,33 +163,27 @@ def _plot_comparacao_comercializacao(df):
     plt.xticks(rotation=45)
     st.pyplot(fig)
 
-    # ----------------------
-    # Identificar outliers
-    # ----------------------
-    outliers = []
+    # Encontrar outliers por tipo de comercialização
+    outliers = pd.DataFrame()
     for tipo, grupo in df.groupby('tipo_de_comercializacao'):
         q1 = grupo['valor'].quantile(0.25)
         q3 = grupo['valor'].quantile(0.75)
         iqr = q3 - q1
         limite_superior = q3 + 1.5 * iqr
 
-        maiores = grupo[grupo['valor'] > limite_superior]
-        top5 = maiores.sort_values('valor', ascending=False).head(5)
-        outliers.append(top5)
+        outliers_grupo = grupo[grupo['valor'] > limite_superior]
+        top5 = outliers_grupo.sort_values(by='valor', ascending=False).head(5)
+        outliers = pd.concat([outliers, top5])
 
-    df_outliers = pd.concat(outliers).sort_values(['tipo_de_comercializacao', 'valor'], ascending=[True, False])
-
-    # Exibir a tabela de outliers
-    st.subheader("Top 5 Maiores Outliers por Tipo de Comercialização")
-    st.dataframe(
-        df_outliers[['tipo_de_comercializacao', 'produto', 'valor']]
-        .rename(columns={
-            'tipo_de_comercializacao': 'Tipo de Comercialização',
-            'prod_und': 'Produto',
-            'valor': 'Faturamento (R$)'
-        }),
-        use_container_width=True
-    )
+    if not outliers.empty:
+        st.subheader("Top 5 Outliers por Tipo de Comercialização")
+        st.dataframe(
+            outliers[['tipo_de_comercializacao', 'valor']]
+            .sort_values(by=['tipo_de_comercializacao', 'valor'], ascending=[True, False])
+            .reset_index(drop=True)
+        )
+    else:
+        st.info("Nenhum outlier encontrado nos dados.")
 
 # def _plot_comparacao_comercializacao(df):
 #     st.subheader("Faturamento por Tipo")
