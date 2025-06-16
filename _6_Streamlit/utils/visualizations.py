@@ -193,8 +193,8 @@ def _plot_distribuicao_estados(df):
         'produtor': '#ff7f0e',    # Laranja
     }
     
-    # Garante que todas as colunas tenham cores (usa cinza para tipos não especificados)
-    cores = [cores_personalizadas.get(col, '#999999') for col in pivot.columns]
+    # # Garante que todas as colunas tenham cores (usa cinza para tipos não especificados)
+    # cores = [cores_personalizadas.get(col, '#999999') for col in pivot.columns]
 
     # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
