@@ -177,14 +177,14 @@ def _plot_comparacao_comercializacao(df):
 
     if not outliers.empty:
           for i, row in outliers_grupo.iterrows():
-        ax.text(
-            x=tipo,
-            y=row['valor'],
-            s=str(row['prod_und']),
-            fontsize=8,
-            color='red',
-            ha='center'
-        )
+            ax.text(
+                x=tipo,
+                y=row['valor'],
+                s=str(row['prod_und']),
+                fontsize=8,
+                color='red',
+                ha='center'
+            )
     else:
         st.info("Nenhum outlier encontrado nos dados.")
 
