@@ -173,54 +173,54 @@ def _plot_comparacao_comercializacao(df):
 def _plot_distribuicao_estados(df):
     st.subheader("Distribuição por Estado")
 
-    # PALETA PERSONALIZADA 
-    cores_personalizadas = {
-        'atacado': '#1f77b4',   # Azul
-        'varejo': '#2ca02c',     # Verde
-        'produtor': '#ff7f0e',    # Laranja
-    }
-    
-    # Filtrar apenas tipos conhecidos (opcional)
-    tipos_validos = list(cores_personalizadas.keys())
-    df = df[df['tipo_de_comercializacao'].isin(tipos_validos)]
-
-    # Totais nacionais com ordenação
+    # Totais nacionais
     totais_nacionais = df.groupby('tipo_de_comercializacao')['valor'].sum()
-    ordem_colunas = totais_nacionais.sort_values().index.tolist()  # Ordem crescente
 
-    # Criar pivot com a ordem definida
-    pivot = pd.pivot_table(
-        df,
-        values='valor',
-        index='estado',
-        columns='tipo_de_comercializacao',
-        aggfunc='sum',
-        fill_value=0
-    )[ordem_colunas]  # Garantir ordem das colunas
+    # Pivot com ordenação automática das colunas por menor faturamento
+    pivot = pd.pivot_table(df, values='valor', index='estado',
+                           columns='tipo_de_comercializacao', aggfunc='sum').fillna(0)
 
-    # Ordenar estados pelo total (decrescente)
-    pivot = pivot.assign(TOTAL=pivot.sum(axis=1))
-    pivot = pivot.sort_values('TOTAL', ascending=False)
-    pivot = pivot.drop(columns='TOTAL')
+    pivot = pivot[totais_nacionais.sort_values().index]  # ordena colunas automaticamente
 
-    # GERAR CORES NA ORDEM CORRETA
-    cores = [cores_personalizadas[col] for col in pivot.columns]
+    # Ordena estados pelo total
+    pivot['TOTAL'] = pivot.sum(axis=1)
+    pivot = pivot.sort_values(by='TOTAL').drop(columns='TOTAL')
+
+    # Adiciona linha "TOTAL NACIONAL"
+    pivot.loc['TOTAL NACIONAL'] = totais_nacionais[pivot.columns]
 
     # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
-    
-    # Gráfico com cores personalizadas
-    pivot.plot(kind='bar', stacked=True, ax=ax, color=cores)
-
-    # Formatar eixo Y
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
-    
+    pivot.plot(kind='bar', stacked=True, ax=ax)
+
+    # Linha vertical de destaque
+    total_idx = pivot.index.get_loc('TOTAL NACIONAL')
+    ax.axvline(x=total_idx - 0.5, color='red', linestyle='--', alpha=0.7)
+
+    # Texto sobre TOTAL NACIONAL
+    y_base = 0
+    for setor in pivot.columns:
+        valor = pivot.loc['TOTAL NACIONAL', setor]
+        if valor > 0:
+            ax.text(total_idx, y_base + valor / 2,
+                    f'R$ {valor:,.0f}'.replace(",", "X").replace(".", ",").replace("X", "."),
+                    color='white', fontsize=8, fontweight='bold', ha='center', va='center')
+            y_base += valor
+
     plt.xticks(rotation=45)
-    plt.legend(title='Tipo de Comercialização', bbox_to_anchor=(1.05, 1))
+    plt.legend(title='Setor')
     plt.tight_layout()
     st.pyplot(fig)
+
+    # Tabela de totais nacionais
+    st.subheader("Totais Nacionais por Setor")
+    st.table(totais_nacionais.sort_values().apply(
+        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
+    ).rename('Faturamento Total'))
+
 
 
 def _plot_instabilidade_estados(df):
