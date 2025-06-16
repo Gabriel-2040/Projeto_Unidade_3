@@ -207,7 +207,7 @@ def _plot_instabilidade_estados(df):
     cv_estado = df.groupby('estado')['valor'].agg(['mean', 'std'])
     cv_estado['cv'] = (cv_estado['std'] / cv_estado['mean']) * 100
     cv_estado = cv_estado.sort_values('cv', ascending=False)
-    st.subheader("Estados com Maior Instabilidade")
+    st.subheader("Estados com Maior Variação")
     st.dataframe(cv_estado.style.format("{:,.2f}"))
 
 def _plot_boxplot_estados(df):

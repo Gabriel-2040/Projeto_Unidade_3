@@ -43,26 +43,25 @@ with tab1:
     with st.container():
         st.markdown("### Observações")
         st.write("Análise é referente ao faturamento(ganhos) de produtos no mercado brasileiro, separados por\n "
-        "estado, ano e tipo de comercialização. O tipo de comercialização dividido entre: varejo, atacado e produtor. Aqui vamos verificar:\n"
+        "estado, ano e tipo de comercialização, região e macrogrupos. Os tipos de comercialização são divididos\n"
+        " entre: varejo, atacado e produtor. Nessa aba será verificado:\n"
         "   - Estados que mais faturaram\n"
-        "   - Evolução do faturamento ao longo do tempo\n" 
-        "   - Tipos de  produtos que mais faturaram\n" )
+        "   - Evolução do faturamento ao longo do tempo(anos)\n" 
+        "   - 5 produtos que mais faturaram\n" )
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab1")
 with tab2:
     mostrar_comparacao_tipos(df_filtrado)
     with st.container():
         st.markdown("### Observações")
-        st.write("Nessa aba temos 2 gráficos: Um de faturamento por tipo com um graico ipo boxplot onde\n" \
-        "verificamos a presença de muitos 'outliers' que interferem no preço da média dos produtos.\n" 
-        " A partir desse gráfico conseguimos buscar entre as abas e pesquisar que produto é ese, que área, o local que ele esta.\n" 
-        "sendo comercializado. Por exemplo:\n"
-        "no indicador de Produtor vemos um outlier muito diferente que intefere no preço da média. vamos verificar quem é ele.\n"
-        "O graAnálise é referente ao faturamento(ganhos) de produtos no mercado brasileiro, separados por\n "
-        "estado, ano e tipo de comercialização. O tipo de comercialização dividido entre: varejo, atacado e produtor. Aqui vamos verificar:\n"
-        "   - Estados que mais faturaram\n"
-        "   - Evolução do faturamento ao longo do tempo\n" 
-        "   - Tipos de  produtos que mais faturaram\n" )
+        st.write("Nessa aba temos 2 gráficos: Um de faturamento do setor(Varejo, Atacado ou Produtor) ao longo dos anos e outro mostrando a distribuição\n" 
+        "dos faturamentos por estado\n"
+        "No gráfico 1 (Faturamento por Setor p/Ano) conseguimos ver a evolução do faturamento dos setores ao longo dos anos. Podemos usar os filtor de ANOS\n"
+        "| ESTADOS | TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO. Com suas combinações conseguimos chegar a evolução de faturamento de um estado entre periodos,\n"
+        "por tipo de setor, por tipo de produto, conseguindo retirar métricas para decisões\n"
+        "No gráfico 2 (Distribuição por Estado) conseguimos ver a distribuição de faturamento por estado. E conseguimos ter uma dimensão melhor quanto cada\n"
+        "setor infuencia no estado. Podemos usar também os filtros de ANOS | ESTADOS |TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO\n"
+        "Aqui tfoi repetido a tabela de os 5 produtos mais vendiddos.")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab2")
 
@@ -70,7 +69,7 @@ with tab3:
     mostrar_instabilidade(df_filtrado)
     with st.container():
         st.markdown("### Observações")
-        st.write("Aqui você pode adicionar suas observações sobre o gráfico acima...")
+        st.write("Na tabela de Estado com Maior Variação.")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab3")
 
