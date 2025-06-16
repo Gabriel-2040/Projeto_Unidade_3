@@ -178,8 +178,8 @@ def _plot_comparacao_comercializacao(df):
     if not outliers.empty:
         st.subheader("Top 5 Outliers por Tipo de Comercialização")
         st.dataframe(
-            outliers[['tipo_de_comercializacao', 'valor']]
-            .sort_values(by=['tipo_de_comercializacao', 'valor'], ascending=[True, False])
+            outliers[['tipo_de_comercializacao', 'valor','prod_und']]
+            .sort_values(by=['tipo_de_comercializacao', 'valor','prod_und'], ascending=[True, False])
             .reset_index(drop=True)
         )
     else:
