@@ -176,7 +176,7 @@ def _plot_comparacao_comercializacao(df):
         outliers = pd.concat([outliers, top5])
 
     if not outliers.empty:
-          for i, row in outliers_grupo.iterrows():
+        for i, row in outliers_grupo.iterrows():
             ax.text(
                 x=tipo,
                 y=row['valor'],
