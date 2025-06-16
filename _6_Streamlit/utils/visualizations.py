@@ -39,7 +39,7 @@ def mostrar_comparacao_tipos(df):  # Fixed: Added df parameter
     with col1:
         _plot_comparacao_comercializacao(df)  # Fixed: Corrected function name
     with col2:
-        _plot_distribuicao_tipos(df)
+        _plot_distribuicao_estados(df)
 
 def mostrar_instabilidade(df):  # Fixed: Added df parameter
     st.header("Instabilidade de Preços por Estado")
@@ -171,19 +171,42 @@ def _plot_comparacao_comercializacao(df):
     st.table(top_produtos)
 
 
-def _plot_distribuicao_tipos(df):
+def _plot_distribuicao_estados(df):
     st.subheader("Distribuição por Estado")
+    
+    # Calcular totais nacionais para referência
+    totais_nacionais = df.groupby('tipo_de_comercializacao')['valor'].sum()
+    
     pivot = pd.pivot_table(df, values='valor', index='estado', 
                           columns='tipo_de_comercializacao', aggfunc='sum')
+    
+    # Adicionar linha com totais nacionais
+    pivot.loc['TOTAL NACIONAL'] = totais_nacionais
+    
     fig, ax = plt.subplots(figsize=(12, 8))
-    # Formatar eixo Y como moeda com separador de milhar
+    
+    # Formatação monetária
     ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
+    
     pivot.plot(kind='bar', stacked=True, ax=ax)
+    
+    # Destacar linha de total nacional
+    ax.axhline(y=0, color='k', linewidth=1)
+    ax.get_xticks()
+    ax.axvline(x=len(pivot)-1.5, color='red', linestyle='--', alpha=0.7)
+    
     plt.xticks(rotation=45)
-    plt.legend(title='Tipo Comercialização')
+    plt.legend(title='Setor')
+    plt.tight_layout()
     st.pyplot(fig)
+    
+    # Mostrar totais nacionais em tabela
+    st.subheader("Totais Nacionais por Setor")
+    st.table(totais_nacionais.apply(
+        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
+    ).rename('Faturamento Total'))
 
 def _plot_instabilidade_estados(df):
     # Calcular coeficiente de variação
