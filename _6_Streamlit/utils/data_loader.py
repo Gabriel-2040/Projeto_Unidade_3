@@ -24,7 +24,7 @@ def carregar_dados():
         if df['data'].isnull().any():
             st.warning("Algumas datas não puderam ser convertidas corretamente")
         
-        return df[['estado', 'prod_und', 'tipo_de_comercializacao', 'valor', 'ano', 'mes', 'data', 'macrogrupo']]
+        return df[['estado', 'prod_und', 'tipo_de_comercializacao', 'valor', 'ano', 'mes', 'data', 'macrogrupo', 'nome_regiao']]
     
     except Exception as e:
         st.error(f"Erro ao carregar ou processar dados: {e}")
