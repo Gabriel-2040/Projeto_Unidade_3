@@ -170,7 +170,6 @@ def _plot_comparacao_comercializacao(df):
     # Exibir tabela formatada
     st.table(top_produtos)
 
-
 def _plot_distribuicao_estados(df):
     st.subheader("Distribuição por Estado")
 
@@ -184,11 +183,16 @@ def _plot_distribuicao_estados(df):
     setores_ordenados = ['VAREJO', 'ATACADO', 'PRODUTOR']
     for setor in setores_ordenados:
         if setor not in pivot.columns:
-            pivot[setor] = 0  # garante que todos os setores existam no DataFrame
+            pivot[setor] = 0
 
     pivot = pivot[setores_ordenados]
 
-    # Adicionar linha com totais nacionais
+    # Calcular total por estado e ordenar
+    pivot['TOTAL'] = pivot.sum(axis=1)
+    pivot = pivot.sort_values(by='TOTAL')  # ordena do menor pro maior
+    pivot = pivot.drop(columns='TOTAL')
+
+    # Adicionar linha com totais nacionais (no final)
     pivot.loc['TOTAL NACIONAL'] = [totais_nacionais.get(setor, 0) for setor in setores_ordenados]
 
     fig, ax = plt.subplots(figsize=(12, 8))
@@ -198,19 +202,19 @@ def _plot_distribuicao_estados(df):
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
 
-    # Plot do gráfico de barras empilhadas
-    pivot.plot(kind='bar', stacked=True, ax=ax, color=["#2ca02c", "#1f77b4", "#ff7f0e"])  # verde, azul, laranja
+    # Plot do gráfico
+    pivot.plot(kind='bar', stacked=True, ax=ax, color=["#2ca02c", "#1f77b4", "#ff7f0e"])
 
     # Destacar linha de total nacional
-    ax.axvline(x=len(pivot)-1.5, color='red', linestyle='--', alpha=0.7)
+    total_idx = pivot.index.get_loc('TOTAL NACIONAL')
+    ax.axvline(x=total_idx - 0.5, color='red', linestyle='--', alpha=0.7)
 
-    # Adicionar valores nas barras da linha "TOTAL NACIONAL"
-    total_nacional_idx = pivot.index.get_loc('TOTAL NACIONAL')
+    # Adicionar valores sobre a barra TOTAL NACIONAL
     y_base = 0
     for setor in setores_ordenados:
         valor = pivot.loc['TOTAL NACIONAL', setor]
         if valor > 0:
-            ax.text(total_nacional_idx, y_base + valor / 2,
+            ax.text(total_idx, y_base + valor / 2,
                     f'R$ {valor:,.0f}'.replace(",", "X").replace(".", ",").replace("X", "."),
                     color='white', fontsize=8, fontweight='bold', ha='center', va='center')
             y_base += valor
@@ -219,6 +223,13 @@ def _plot_distribuicao_estados(df):
     plt.legend(title='Setor')
     plt.tight_layout()
     st.pyplot(fig)
+
+    # Mostrar totais nacionais
+    st.subheader("Totais Nacionais por Setor")
+    st.table(totais_nacionais.apply(
+        lambda x: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", ".")
+    ).rename('Faturamento Total'))
+
 
     # Mostrar totais nacionais em tabela
     st.subheader("Totais Nacionais por Setor")
