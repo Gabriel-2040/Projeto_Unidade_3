@@ -150,8 +150,6 @@ prompt-toolkit==1.0.18
 propcache==0.2.1
 protobuf==5.29.5
 psutil==6.0.0
-psycopg-binary==3.2.9
-psycopg2==2.9.10
 psycopg2-binary==2.9.10
 pure_eval==0.2.3
 py-chocolatey==0.4.1
