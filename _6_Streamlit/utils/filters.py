@@ -7,6 +7,11 @@ def criar_filtros(df):
     st.sidebar.header('Filtros')
     
     return {
+        'meses': st.sidebar.multiselect(
+            'Meses', 
+            options=sorted(df['mes'].unique()), 
+            default=sorted(df['mes'].unique())
+        ),
         'anos': st.sidebar.multiselect(
             'Anos', 
             options=sorted(df['ano'].unique()), 
