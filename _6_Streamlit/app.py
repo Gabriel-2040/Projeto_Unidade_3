@@ -9,7 +9,6 @@ from utils.visualizations import (
     mostrar_sazonalidade,
     mostrar_variacao_periodo,
     mostrar_plot_mapa_valor,
-    mostrar_outlier_estado,
     
 )
 
@@ -30,7 +29,7 @@ df_filtrado = aplicar_filtros(df, filtros)
 st.title('Análise de Comercialização de Produtos')
 
 # Abas
-tab1, tab2, tab3, tab4, tab5,tab6 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "Visão Geral", 
     "Varejo vs Atacado vs Produtor", 
     "Instabilidade de Preços", 
