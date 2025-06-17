@@ -22,7 +22,6 @@ estados_coords = {
 }
 
 
-
 def mostrar_visao_geral(df):
     st.header("Visão Geral do Faturamento")
     col1, col2, col3 = st.columns(3)  # Fixed: Added col3 and proper column structure
@@ -42,7 +41,7 @@ def mostrar_comparacao_tipos(df):  # Fixed: Added df parameter
         _plot_distribuicao_estados(df)
 
 def mostrar_instabilidade(df):  # Fixed: Added df parameter
-    st.header("Instabilidade de Preços por Estado")
+    st.header("Variação de Preços por Estado")
     col1, col2, col3 = st.columns(3)
     with col1:
         _plot_instabilidade_estados(df)
@@ -61,9 +60,6 @@ def mostrar_mapa_valor(df):
     col1, col2 = st.columns(2)
     with col1:
         mostrar_plot_mapa_valor(df)
-
-
-
 
 def _plot_faturamento_estado(df):
     fat_estado = df.groupby('estado')['valor'].sum().sort_values(ascending=False)
@@ -221,7 +217,7 @@ def _plot_produto_outliers_estado(df):
     outliers = df.loc[df.groupby('estado')['valor'].idxmax()]
 
     # Selecionar colunas relevantes
-    outliers = outliers[['estado', 'produto', 'valor']].sort_values(by='valor', ascending=False)
+    outliers = outliers[['estado', 'prod_und', 'valor']].sort_values(by='valor', ascending=False)
 
     st.dataframe(outliers.style.format({"valor": "R$ {:,.2f}"}))
 
