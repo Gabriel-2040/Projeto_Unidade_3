@@ -52,6 +52,7 @@ if df.empty:
 # Sidebar - Filtros
 st.sidebar.header('Filtros')
 anos = st.sidebar.multiselect('Anos', options=sorted(df['ano'].unique()), default=sorted(df['ano'].unique()))
+mes = st.sidebar.multiselect('Meses', options=sorted(df['mes'].unique()), default=sorted(df['mes'].unique()))
 estados = st.sidebar.multiselect('Estados', options=sorted(df['estado'].unique()), default=sorted(df['estado'].unique()))
 tipo_comerc = st.sidebar.multiselect('Tipo Comercialização', 
                                    options=sorted(df['tipo_de_comercializacao'].unique()), 
@@ -60,6 +61,7 @@ tipo_comerc = st.sidebar.multiselect('Tipo Comercialização',
 # Aplicar filtros
 df_filtrado = df[
     (df['ano'].isin(anos)) & 
+    (df['mes'].isin(mes)) &
     (df['estado'].isin(estados)) & 
     (df['tipo_de_comercializacao'].isin(tipo_comerc))
 ]

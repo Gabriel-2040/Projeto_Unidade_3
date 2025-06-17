@@ -74,7 +74,7 @@ with tab3:
         st.write("Na tabela de Estado com Maior Variação foi feita uma tabela com a media de preços, desvio padrão e coeficiente de variação. Verificamos que exitem " \
         "muitos valores com diferenças muito altas. A partir disso pelos filtros podemos ir diminuindo a variabilidade\n\n"
         "por macrogrupo, região, estado, espaço de tempo, etc..)\n\n" \
-        "**mean ( Media)** : é a média aritmética dos valores por estado. \\nn" \
+        "**mean ( Media)** : é a média aritmética dos valores por estado. \n\n" \
         "**std (Desvio padrão)** : o desvio padrão, ou seja, o quanto os valores de valor se dispersam em relação à média dentro de cada estado. \n\n" 
         "**cv (Coeficiente de variação)** : Comparar a estabilidade de diferentes grupos: quanto maior o CV, mais instável ou variável é o grupo.")
         # Ou usar um text_area para permitir edição
