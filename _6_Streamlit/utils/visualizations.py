@@ -211,7 +211,7 @@ def _plot_instabilidade_estados(df):
     st.dataframe(cv_estado.style.format("{:,.2f}"))
 
 def _plot_produto_outliers_estado(df):
-    st.subheader("Produto com Maior Valor por Estado (Outlier)")
+    st.subheader("Produto (Outlier)")
 
     # Para cada estado, encontrar o produto com maior valor
     outliers = df.loc[df.groupby('estado')['valor'].idxmax()]
