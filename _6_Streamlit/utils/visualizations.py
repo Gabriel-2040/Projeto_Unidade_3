@@ -43,10 +43,12 @@ def mostrar_comparacao_tipos(df):  # Fixed: Added df parameter
 
 def mostrar_instabilidade(df):  # Fixed: Added df parameter
     st.header("Instabilidade de Preços por Estado")
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         _plot_instabilidade_estados(df)
     with col2:
+        _plot_produto_outliers_estado(df)
+    with col3:
         _plot_boxplot_estados(df)
 
 def mostrar_mapa_valor(df):
@@ -60,11 +62,7 @@ def mostrar_mapa_valor(df):
     with col1:
         mostrar_plot_mapa_valor(df)
 
-def mostrar_outlier_estado(df):
-    st.header("Outlier de Preços por Estado")
-    col1, col2 = st.columns(2)
-    with col1:
-        _plot_produto_outliers_estado(df)
+
 
 
 def _plot_faturamento_estado(df):
