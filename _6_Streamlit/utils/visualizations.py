@@ -315,14 +315,14 @@ def mostrar_plot_mapa_valor(df):
     df = df.dropna(subset=["latitude", "longitude"])
 
     # Agrupamento
-    df_mapa = df.groupby(['estado', 'prod_und', 'latitude', 'longitude'], as_index=False)['valor'].sum()
+    df_mapa = df.groupby(['estado', 'macrogrupo', 'latitude', 'longitude'], as_index=False)['valor'].sum()
 
     # Normalizar valores para melhor visualização
     max_valor = df_mapa['valor'].max()
     df_mapa['raio_normalizado'] = 50000 + (df_mapa['valor'] / max_valor) * 500000
 
     # Gerar cores mais claras e vivas
-    produtos_unicos = df_mapa["prod_und"].unique()
+    produtos_unicos = df_mapa["macrogrupo"].unique()
     cores_aleatorias = {
         produto: [
             random.randint(150, 255),  # R - mais claro
@@ -333,12 +333,12 @@ def mostrar_plot_mapa_valor(df):
         for produto in produtos_unicos
     }
 
-    df_mapa["color"] = df_mapa["prod_und"].apply(lambda x: cores_aleatorias.get(x, [200, 200, 200, 200]))
+    df_mapa["color"] = df_mapa["macrogrupo"].apply(lambda x: cores_aleatorias.get(x, [200, 200, 200, 200]))
 
     # Tooltip para mostrar informações
     tooltip = {
         "html": "<b>Estado:</b> {estado}<br>"
-                "<b>Produto:</b> {prod_und}<br>"
+                "<b>Produto:</b> {macrogrupo}<br>"
                 "<b>Valor:</b> R$ {valor:,.2f}",
         "style": {
             "backgroundColor": "steelblue",

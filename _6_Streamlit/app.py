@@ -1,5 +1,7 @@
 import streamlit as st
 from datetime import datetime
+from PIL import Image
+import os
 from utils.data_loader import carregar_dados
 from utils.filters import criar_filtros, aplicar_filtros
 from utils.visualizations import (
