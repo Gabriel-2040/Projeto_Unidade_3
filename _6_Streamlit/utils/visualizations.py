@@ -60,6 +60,12 @@ def mostrar_mapa_valor(df):
     with col1:
         mostrar_plot_mapa_valor(df)
 
+def mostrar_outlier_estado(df):
+    st.header("Outlier de Preços por Estado")
+    col1, col2 = st.columns(2)
+    with col1:
+        _plot_produto_outliers_estado(df)
+
 
 def _plot_faturamento_estado(df):
     fat_estado = df.groupby('estado')['valor'].sum().sort_values(ascending=False)
@@ -209,6 +215,18 @@ def _plot_instabilidade_estados(df):
     cv_estado = cv_estado.sort_values('cv', ascending=False)
     st.subheader("Estados com Maior Variação")
     st.dataframe(cv_estado.style.format("{:,.2f}"))
+
+def _plot_produto_outliers_estado(df):
+    st.subheader("Produto com Maior Valor por Estado (Outlier)")
+
+    # Para cada estado, encontrar o produto com maior valor
+    outliers = df.loc[df.groupby('estado')['valor'].idxmax()]
+
+    # Selecionar colunas relevantes
+    outliers = outliers[['estado', 'produto', 'valor']].sort_values(by='valor', ascending=False)
+
+    st.dataframe(outliers.style.format({"valor": "R$ {:,.2f}"}))
+
 
 def _plot_boxplot_estados(df):
     st.subheader("Distribuição de Preços por Estado")

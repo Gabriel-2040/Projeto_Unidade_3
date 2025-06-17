@@ -8,7 +8,9 @@ from utils.visualizations import (
     mostrar_instabilidade,
     mostrar_sazonalidade,
     mostrar_variacao_periodo,
-    mostrar_plot_mapa_valor
+    mostrar_plot_mapa_valor,
+    mostrar_outlier_estado,
+    
 )
 
 # Configuração inicial
@@ -44,10 +46,10 @@ with tab1:
         st.markdown("### Observações")
         st.write("Análise é referente ao faturamento(ganhos) de produtos no mercado brasileiro, separados por\n "
         "estado, ano e tipo de comercialização, região e macrogrupos. Os tipos de comercialização são divididos\n"
-        " entre: varejo, atacado e produtor. Nessa aba será verificado:\n"
-        "   - Estados que mais faturaram\n"
-        "   - Evolução do faturamento ao longo do tempo(anos)\n" 
-        "   - 5 produtos que mais faturaram\n" )
+        " entre: varejo, atacado e produtor. Nessa aba será verificado:\n\n"
+        "   - Estados que mais faturaram\n\n"
+        "   - Evolução do faturamento ao longo do tempo(anos)\\nn" 
+        "   - 5 produtos que mais faturaram\n\n" )
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab1")
 with tab2:
@@ -55,13 +57,13 @@ with tab2:
     with st.container():
         st.markdown("### Observações")
         st.write("Nessa aba temos 2 gráficos: Um de faturamento do setor(Varejo, Atacado ou Produtor) ao longo dos anos e outro mostrando a distribuição\n" 
-        "dos faturamentos por estado\n"
+        "dos faturamentos por estado.\n\n"
         "No gráfico 1 (Faturamento por Setor p/Ano) conseguimos ver a evolução do faturamento dos setores ao longo dos anos. Podemos usar os filtor de ANOS\n"
         "| ESTADOS | TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO. Com suas combinações conseguimos chegar a evolução de faturamento de um estado entre periodos,\n"
-        "por tipo de setor, por tipo de produto, conseguindo retirar métricas para decisões\n"
+        "por tipo de setor, por tipo de produto, conseguindo retirar métricas para decisões\n\n"
         "No gráfico 2 (Distribuição por Estado) conseguimos ver a distribuição de faturamento por estado. E conseguimos ter uma dimensão melhor quanto cada\n"
-        "setor infuencia no estado. Podemos usar também os filtros de ANOS | ESTADOS |TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO\n"
-        "Aqui tfoi repetido a tabela de os 5 produtos mais vendiddos.")
+        "setor infuencia no estado. Podemos usar também os filtros de ANOS | ESTADOS |TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO.\n\n"
+        "Aqui foi repetido a tabela de os 5 produtos mais vendiddos.")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab2")
 
@@ -70,11 +72,11 @@ with tab3:
     with st.container():
         st.markdown("### Observações")
         st.write("Na tabela de Estado com Maior Variação foi feita uma tabela com a media de preços, desvio padrão e coeficiente de variação. Verificamos que exitem " \
-        "muitos valores com diferenças muito altas. A partir disso pelos filtros podemos ir diminuindo a variabilidade\n"
-        "por macrogrupo, região, estado, espaço de tempo, etc..)\n" \
-        "mean ( Media) : é a média aritmética dos valores por estado. \n" \
-        "std (Desvio padrão) : o desvio padrão, ou seja, o quanto os valores de valor se dispersam em relação à média dentro de cada estado. \n" \
-        "cv (Coeficiente de variação): Comparar a estabilidade de diferentes grupos: quanto maior o CV, mais instável ou variável é o grupo. " )
+        "muitos valores com diferenças muito altas. A partir disso pelos filtros podemos ir diminuindo a variabilidade\n\n"
+        "por macrogrupo, região, estado, espaço de tempo, etc..)\n\n" \
+        "**mean ( Media)** : é a média aritmética dos valores por estado. \\nn" \
+        "**std (Desvio padrão)** : o desvio padrão, ou seja, o quanto os valores de valor se dispersam em relação à média dentro de cada estado. \n\n" 
+        "**cv (Coeficiente de variação)** : Comparar a estabilidade de diferentes grupos: quanto maior o CV, mais instável ou variável é o grupo.")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab3")
 
