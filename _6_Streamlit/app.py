@@ -83,7 +83,9 @@ with tab4:
     mostrar_sazonalidade(df_filtrado)
     with st.container():
         st.markdown("### Observações")
-        st.write("Aqui você pode adicionar suas observações sobre o gráfico acima...")
+        st.write("Aqui temos um gráfico de sazonalidade por mês. Podemos verificar a variação de preco de um produto ao longo do ano.\n\n" \
+        "Temos os filtros gerais: MES |ANOS | ESTADOS | TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO | REGIAO,  e também tem um \n" \
+        "um seletor dopdown onde podemos escolher o produto que queremos analisar ")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab4")
 
@@ -91,7 +93,9 @@ with tab5:
     mostrar_variacao_periodo(df_filtrado)
     with st.container():
         st.markdown("### Observações")
-        st.write("Aqui você pode adicionar suas observações sobre o gráfico acima...")
+        st.write("Aqui temos um gráfico de variação em percentual de preços por mês de um produto. Podemos verificar a variação de preco de um produto ao longo do ano.\n\n" \
+        "Temos os filtros gerais: MES |ANOS | ESTADOS | TIPO DE COMERCIALIZAÇÃO(SETOR) | MACROGRUPO | REGIAO,  e também tem um \n" \
+        "um seletor dopdown onde podemos escolher o produto que queremos analisar ")
         # Ou usar um text_area para permitir edição
         observacoes = st.text_area("Adicione suas observações:", key="obs_tab5")
 with tab6:
