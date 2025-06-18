@@ -252,6 +252,7 @@ def mostrar_sazonalidade(df):
         ax.yaxis.set_major_formatter(
         ticker.FuncFormatter(lambda x, _: f'R$ {x:,.2f}'.replace(",", "X").replace(".", ",").replace("X", "."))
     )
+        
         # Legenda fora do gráfico, alinhada à direita com espaçamento
         ax.legend(title='Ano', bbox_to_anchor=(1.15, 1), loc='upper left', fontsize=8, title_fontsize=9)
 
