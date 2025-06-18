@@ -4,8 +4,8 @@
 .venv/
 venv/
 .vscode
-_6_Streamlit/venv_streamlit/
-_6_Streamlit/.venv_streamlit/
+_6_Streamlit_app/venv_streamlit/
+_6_Streamlit_app/.venv_streamlit/
 
 
 

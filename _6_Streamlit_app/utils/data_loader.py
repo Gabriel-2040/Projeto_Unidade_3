@@ -15,7 +15,7 @@ def carregar_dados():
         # df = pd.read_csv(r'E:\digital college\DA18\PYTHON\Projeto_Unidade_3\_5_Dataframes_tratados\dados_completos.csv')
         
         # Processamento dos dados (APÓS carregamento)
-        # Criar coluna data corretamente
+        # Criar coluna data corretamentestreamlit r
         df['data'] = pd.to_datetime(df['ano_mes'].astype(str), format='%Y%m')
         df['ano'] = df['data'].dt.year
         df['mes'] = df['data'].dt.month
