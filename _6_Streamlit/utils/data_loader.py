@@ -8,7 +8,7 @@ from datetime import datetime
 def carregar_dados():
     try:
         # Opção 1: Carregar do GitHub (URL raw)
-        url = "https://raw.githubusercontent.com/Gabriel-2040/Projeto_Unidade_3/main/_6_Streamlit\assets\dados_completos.csv"
+        url = "https://raw.githubusercontent.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_6_Streamlit/assets/dados_completos.csv"
         df = pd.read_csv(url)
         
         # # Opção 2 alternativa (local) - descomente se necessário:
