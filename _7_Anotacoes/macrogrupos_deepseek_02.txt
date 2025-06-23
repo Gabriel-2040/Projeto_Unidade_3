@@ -1,0 +1,132 @@
+Aqui está a classificação dos alimentos em macro grupos, organizados de forma lógica e abrangente:
+
+---
+
+### **1. Frutas**
+
+### **2. Grãos e Cereais**
+
+### **3. Raízes e Tubérculos**
+
+### **4. Carnes e Derivados**
+	#### **Bovinos**
+
+	#### **Aves**
+
+	#### **Suínos**
+
+	#### **Peixes e Frutos do Mar**
+
+BAGRE CONGELADO (kg)
+BEZERRO ATÉ 1 ANO (un)
+CAÇÃO CONGELADO (kg)
+### **5. Lácteos e Ovos**
+
+### **6. Óleos e Gorduras**
+
+### **7. Açúcares e Adoçantes**
+
+### **8. Farinhas e Féculas**
+
+### **9. Hortaliças e Legumes**
+
+### **10. Castanhas e Sementes**
+ALGODÃO EM PLUMA (15 kg)
+AMENDOIM DESCASCADO (25 kg)
+AMENDOIM DESCASCADO CATADO (50 kg)
+AMENDOIM EM CASCA (25 kg)
+AMENDOIM EM CASCA (30 kg)
+AMENDOIM EM CASCA (t)
+### **11. Bebidas e Extratos**
+
+### **12. Outros**
+Você está certa em verificar! Vamos fazer uma classificação **completa e organizada** de todos os itens que você enviou, garantindo que nenhum fique de fora. Segue a versão revisada:
+
+---
+
+### **Classificação Completa** (em ordem alfabética dentro de cada grupo)
+
+#### **1. Frutas**  
+`ABACAXI PÉROLA (kg/t/un)`, `ABACAXI (un/kg)`, `AÇAÍ FRUTO (kg)`, `BANANA (20kg/kg)`, `BANANA NANICA (kg)`, 
+`BANANA PACOVAN (kg)`, `BANANA PRATA (20kg/kg)`, `BARU FRUTO (kg)`, `JUÇARA FRUTO (kg)`, `LARANJA (40.8kg/kg)`, 
+`MAÇÃ (kg)`, `MAMÃO FORMOSA (kg)`, `MANGA TOMMY ATKINS (25kg/kg)`, `MARACUJÁ AZEDO (kg)`, `PEQUI FRUTO (kg)`, `PINHA (kg)`, 
+`TANGERINA (24kg/kg)`, `UMBU FRUTO (kg)`, `UVA DE MESA (kg)`
+
+#### **2. Grãos e Cereais**  
+`ARROZ EM CASCA (50kg/60kg)`, `AVEIA EM CASCA (60kg)`, `CEVADA EM GRÃOS (60kg)`, `FEIJÃO CARIOCA (60kg)`, 
+`FEIJÃO PRETO (30kg/60kg)`, `MILHO EM GRÃOS (60kg)`, `MILHETO (60kg)`, `SORGO (60kg)`, `TRIGO EM GRÃOS (60kg/t)`, `TRITICALE EM GRÃOS (60kg)`
+
+#### **3. Raízes e Tubérculos**  
+`BATATA-DOCE (20kg/kg)`, `BATATA INGLESA (50kg/kg)`, `CARÁ (kg/20kg)`, `INHAME (kg)`, `MANDIOCA (kg/t)`, `RAIZ DE MANDIOCA (20kg/kg/t)`
+
+#### **4. Carnes e Derivados**  
+- **Bovinos**: `BOI GORDO (15kg)`, `CARNE BOVINA (kg)`  
+- **Aves**: `CARNE DE FRANGO (kg)`, `FRANGO VIVO (kg/un)`  
+- **Peixes**: `BAGRE CONGELADO (kg)`, `CAÇÃO CONGELADO (kg)`, `CORVINA CONGELADO (kg)`, `PESCADINHA (kg)`  
+- **Outros**: `OVOS (dz)`
+
+#### **5. Lácteos**  
+`LEITE DE VACA (l)`, `QUEIJO (kg)`, `IOGURTE (900g)`, `BEBIDA LÁCTEA (900g/l)`
+
+#### **6. Óleos e Gorduras**  
+`AZEITE DE BABAÇU (l)`, `ÓLEO DE SOJA (kg/900ml)`, `ÓLEO DE PEQUI (l)`
+
+#### **7. Açúcares e Adoçantes**  
+`AÇÚCAR CRISTAL (10kg/kg)`, `AÇÚCAR REFINADO (10kg/kg)`, `MEL DE ABELHA (25kg/kg)`
+
+#### **8. Farinhas e Féculas**  
+`FARINHA DE MANDIOCA (50kg/kg)`, `FARINHA DE TRIGO (50kg)`, `FUBÁ DE MILHO (kg)`, `POLVILHO (50kg/kg)`
+
+#### **9. Hortaliças e Legumes**  
+`ALHO (kg)`, `CEBOLA (20kg/kg)`, `TOMATE (25kg/kg)`, `QUIABO (kg)`
+
+#### **10. Castanhas e Sementes**  
+`AMENDOIM (25kg/kg)`, `CASTANHA DE CAJU (kg)`, `CASTANHA DO BRASIL (kg)`, `GIRASSOL (60kg)`
+
+#### **11. Bebidas e Extratos**  
+`CAFÉ (60kg/kg)`, `EXTRATO DE TOMATE (340g)`, `SUCO DE UVA (1l)`
+
+#### **12. Produtos Industriais/Agrícolas**  
+`BORRACHA (kg)`, `CERA DE CARNAÚBA (15kg)`, `FARELO DE SOJA (t)`, `PHOSMET (kg)`
+
+#### **13. Insumos Agrícolas**  
+`10-30-15 (50kg) [Fertilizante]`, `SEMENTE DE ARROZ (kg)`
+
+#### **14. Serviços**  
+`ALUGUEL DE TRATOR (h/maq)`, `DIARISTA (diária)`, `ENERGIA ELÉTRICA (kwh)`
+
+#### **15. Embalagens**  
+`SACARIA DE POLIPROPILENO (1000un)`
+
+---
+
+### **Itens que precisam de confirmação**:
+- `MACARRÃO ESPAGUETE (500g)` → Massas alimentícias?  
+- `PÃO FRANCÊS (kg)` → Padaria?  
+- `BOLO DE LARANJA (kg)` -> Confeitaria?  
+
+### **Próximos passos**:
+1. Quer que eu refine algum grupo específico?  
+2. Precisa de subcategorias (ex.: "Frutas Tropicais" vs "Frutas Temperadas")?  
+3. Algum item ficou fora da classificação?  
+
+	categorias = [
+     	(['MAMONA%','CANA%','MACAÚBA','COCO%','PESSEGO%','LICURI%','MURICI%','ABACATE%','GOIABA%','GRAVIOLA%','ACEROLA%','CAJU%', 'AÇAÍ%','BURITI%', 'ABACAXI%', 'BANANA%','BARU%',
+		'JUÇARA%', 'LARANJA%','MAÇÃ%', 'MAMÃO%', 'MANGA%', 'MARACUJÁ%','PEQUI%','PINHA%','TANGERINA%', 'UMBU%', 'UVA%'], 1),
+        (['CANOLA','CENTEIO%','ARROZ%','AVEIA%','CEVADA%','FEIJÃO%','MILHO%','FLOCOS%','MILHETO%','TRITICALE%','TRIGO%','SOJA%','AVEIA%','CEVADA%','SORGO%'], 2),
+		(['BATATA%','MANDIOCA%','CARÁ%','INHAME%','MANDIOCA%','RAIZ%'],3),
+        (['BEZERRO%','NOVILHO%','BOI%','CARNE%','FRANGO%','SUÍNO%','BAGRE%','CAÇÃO%','VACA%','CAPRINO%',TAMBAQUI%','PACU%','JARAQUI%','MATRIXÃ%','PIAU%',
+		'CORVINA%','PESCADINHA%','BADEJO%','CAMARÃO%','PIRARUCU%'], 4),
+        (['LEITE%','QUEIJO%','OVOS%','IOGURTE%','%LACTEA%'],5),
+        (['ÓLEO%','AZEITE%',],6),
+        (['AÇÚCAR%', 'AÇUCAR%','MEL%','SAL%'], 7),                # Açúcares
+        (['FARINHA%','FUBÁ%', 'FÉCULA%','POLVILHO%','MASSA%'], 8),   # Farinhas
+        (['CEBOLA%', 'TOMATE%','ALHO%','PIMENTÃO%','QUIABO%','PEPINO%','ABÓBORA%','ABOBRINHA%','ALFACE%','BERINJELA%','MAXIXE%','CEBOLINHA%','CHUCHU%',
+		'COENTRO%','CHEIRO VERDE%','COUVE%','RÚCULA%','PIMENTA DE CHEIRO%','PIMENTA%'], 9),                 # Hortaliças e Legumes
+        (['CACAU%','ALGOD%','CASTANHA%','AMÊNDOA%','AMENDOI%','GIRASSOL%','SEMENTE%', 'CARO%'], 10),                     # Castanhas e Sementes
+        (['POLPA%','CAFÉ%', 'EXTRATO%', 'SUCO%','BEBIDA%',CANJICA%'], 11),               # Bebidas e Extratos
+        (['LATEX%','CASULO%','JUTA%','PÓ%','PIAÇAVA%','SISAL%','UBYFOL%','CAL','BORRACHA%','CERA%',
+		'FIBRA%','FARELO%','PHOSMET%','10-30-15%','ALUGUEL%','DIARISTA%','ENERGIA%','SACARIA%','MACARRÃO%','BOLO%','PÃO%',
+		'ADMINISTRADOR%','ANÁLISE%','MOTONIVELADORA%','MARTELETE%', 'SALÁRIO%'], 12)                #Outros
+    ]
+
