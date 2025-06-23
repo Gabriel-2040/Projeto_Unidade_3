@@ -1,11 +1,7 @@
-"_2_datasets/outras_bases/Base_Credit_Score_Data_Science/Dados/*.csv" 
-"_2_datasets/outras_bases/Base_Credit_Score_Data_Science/Dados/" 
-"_2_datasets/outras_bases/Base_Credit_Score_Data_Science/Dados/" 
+_2_datasets/outras_bases/Base_Credit_Score_Data_Science/Dados/
+_2_datasets/Base_Governamental/Dados/
+_4_Etapa_ETL/agag
+_6_Streamlit/.venv_steramlit/
 .venv/
 venv/
-.vscode
-"_2_datasets\Base_Governamental\Dados"
-"_6_Streamlit\.venv_steramlit"
-
-
-
+.vscode/
