@@ -1,0 +1,193 @@
+---
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto de Análise de Dados - Digital College</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 40px auto;
+      padding: 0 20px;
+      max-width: 900px;
+      line-height: 1.6;
+      color: #222;
+      background-color: #fafafa;
+    }
+    h1, h2, h3, h4, h5 {
+      color: #0056b3;
+    }
+    h1 {
+      border-bottom: 3px solid #0056b3;
+      padding-bottom: 8px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    p, li {
+      text-align: justify;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 0.95em;
+      color: #c7254e;
+    }
+    .center {
+      text-align: center;
+      margin: 25px 0;
+    }
+    ul {
+      margin-left: 20px;
+    }
+    hr {
+      margin: 40px 0;
+      border: none;
+      border-top: 2px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Projeto de Análise de Dados - Disciplina de Python - Digital College</h1>
+  <h3>Professora: Nayara Valevskii</h3>
+
+  <h2>Base de Dados</h2>
+  <h4>Entendimento do Negócio</h4>
+  <p>
+    Essa base representa os preços mensais de produtos agrícolas e alimentícios no Brasil, divulgados por órgãos oficiais, em diferentes níveis de comercialização (produtor, atacado, varejo) e por Unidade Federativa (U.F.).
+    Você atuará como um analista de dados para uma secretaria de políticas públicas, com a missão de monitorar inflação setorial, flutuações regionais e apoiar decisões estratégicas sobre produção, subsídios ou políticas de abastecimento.
+  </p>
+
+  <h2>Etapa de Análise Exploratória</h2>
+  <p>
+    Primeiros códigos, testes, verificações, tentativas. Os códigos aqui não são usados nas outras etapas. São verificação dos tipos de dados, nulos, vazios, cabeçalhos (<code>head</code>) e rodapés (<code>tail</code>). 
+    A partir daqui foram tomadas as primeiras decisões.
+  </p>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/bases.JPG" alt="bases" />
+  </div>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dataset%20incial_head.JPG" alt="dataset inicial head" />
+  </div>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dataset%20incial_tail.JPG" alt="dataset inicial tail" />
+  </div>
+
+  <h2>Etapa de ETL</h2>
+  <p>Etapa onde se realizam os processos de tratamento dos dados e inserção no banco de dados.</p>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dados%20etl.JPG" alt="dados etl" />
+  </div>
+
+  <h4>Arquivo: <code>./datasets_tratados/tratamento_dataset.ipynb</code></h4>
+  <ul>
+    <li>Tratamento do dataset original (preenchimento de nulos com 0)</li>
+    <li>Remoção do rodapé com textos desnecessários</li>
+    <li>Retirada de linhas vazias</li>
+  </ul>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dataset_n%C3%A3o%20rotacionado.JPG" alt="dataset não rotacionado" />
+  </div>
+
+  <h4>Arquivo: <code>./datasets_rotacionados/rotacionar_csv.ipynb</code></h4>
+  <p>
+    Código feito para rotacionar a tabela deixando as colunas <code>(Produto/Unidade, Nível de Comercialização, U.F., data, valor)</code>.
+    Para inserir no Postgres foi necessário retirar vírgulas e pontos das casas decimais, deixando no formato <code>10000.00</code>.
+  </p>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dataset%20rotacionado.JPG" alt="dataset rotacionado" />
+  </div>
+
+  <h4>Arquivo: <code>./merge_csv/merge_colunas.ipynb</code></h4>
+  <p>Arquivo feito para criar as dimensões e gerar os arquivos CSV para produtos e tipos de comércio.</p>
+
+  <p>Durante essa etapa, foram criadas funções para evitar código repetido:</p>
+  <ul>
+    <li><code>atualizar_macrogrupo.py</code></li>
+    <li><code>conectar_banco.py</code> (conexão com banco de dados)</li>
+    <li><code>fechar_conexao.py</code></li>
+  </ul>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/datawarehouse.JPG" alt="datawarehouse" />
+  </div>
+
+  <h4>Arquivo: <code>./_4_Etapa_ETL/insert_public</code></h4>
+  <ul>
+    <li><code>datawarehouse.dim_produtos</code> – produtos</li>
+    <li><code>datawarehouse.dim_nivel_comercializacao</code> – tipos de comercialização</li>
+    <li><code>datawarehouse.dim_data</code> – dimensão tempo</li>
+    <li><code>datawarehouse.dim_macrogrupo</code> – agrupamento de produtos</li>
+    <li><code>datawarehouse.fato_produtos</code> – tabela fato (SQL)</li>
+  </ul>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/modelo%20relacional%20datawarehouse.JPG" alt="modelo relacional datawarehouse" />
+  </div>
+
+  <h2>_5_Dataframes_Tratados</h2>
+  <p>
+    Essa etapa mostrou que os dados tratavam do faturamento bruto dos estados em relação aos produtos vendidos, diferenciados por tipo de comércio (varejo, atacado ou produtor). 
+    As principais análises envolvem:
+  </p>
+  <ul>
+    <li>Diferença entre Varejo, Atacado e Produtor</li>
+    <li>Instabilidade de preços</li>
+    <li>Quantidade de produtos vendidos por ano</li>
+    <li>Sazonalidade de produtos</li>
+  </ul>
+
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/dataframe%20tratado.JPG" alt="dataframe tratado" />
+  </div>
+
+  <h2>_6_Streamlit</h2>
+  <p>
+    O Streamlit é uma biblioteca para construir painéis interativos com Python. 
+    Como ele utiliza arquivos <code>.py</code> (e não <code>.ipynb</code>), os códigos da etapa anterior foram adaptados.
+    O projeto ainda está em andamento e será aprimorado com mais funcionalidades.
+  </p>
+
+  <h3>Visão Geral do Faturamento</h3>
+  <h4>Filtros: Ano / Estado / Região / Tipo de Comercialização / Macrogrupo</h4>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2001.JPG" alt="streamlit 01" />
+  </div>
+
+  <h3>Comparação Varejo x Atacado x Produtor</h3>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2002.JPG" alt="streamlit 02" />
+  </div>
+
+  <h3>Instabilidade de Preços</h3>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2003.JPG" alt="streamlit 03" />
+  </div>
+
+  <h3>Sazonalidade de Produtos</h3>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2004.JPG" alt="streamlit 04" />
+  </div>
+
+  <h3>Variação de Preços por Período (mês/ano)</h3>
+  <div class="center">
+    <img src="https://github.com/Gabriel-2040/Projeto_Unidade_3/blob/main/_10_imagens/streamlit%2005.JPG" alt="streamlit 05" />
+  </div>
+
+</body>
+</html>
+```
+
+---
