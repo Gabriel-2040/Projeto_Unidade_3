@@ -3,6 +3,7 @@ _2_datasets/Base_Governamental/Dados/
 _2_datasets/outras_bases
 _4_Etapa_ETL/agag
 _6_Streamlit/.venv_steramlit/
+_9_funcoes
 .venv/
 venv/
 .vscode/
